@@ -21,28 +21,23 @@ header {
 }
 
 .back-btn:active{
-    border: 1px solid transparent;
-    aspect-ratio: 3/2;
-    height: 50px;
-    border-radius:15px 27px 27px 50px;
-    float: left;
     animation: button-pressed 2s infinite;
 }
 
 @keyframes button-pressed {
     0% {
         transform: scale(100%,100%);
-        background-color: #e3ff00;
+        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
     }
     50%{
         transform: scale(110%,110%);
     }
     75% {
-        background-color: #a2ff00;
+        background: linear-gradient(45deg, #a2ff00,#e3ff00, #a2ff00);
     }
     100% {
         transform: scale(100%,100%);
-        background-color: #e3ff00;
+        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
     }
 }
 
@@ -69,6 +64,22 @@ header {
     font-family: 'inpin hongmengti', italic;
     padding: 4px;
     box-sizing: border-box;
+}
+
+.profile-btn:active{
+    animation: profile-btn-pressed 2s infinite;
+}
+
+@keyframes profile-btn-pressed {
+    0% {
+        border: 2px solid #e3ff00;
+    }
+    75% {
+        border: 2px solid #a2ff00;
+    }
+    100% {
+        border: 2px solid #e3ff00;
+    }
 }
 
 .profile-btn-extra {
