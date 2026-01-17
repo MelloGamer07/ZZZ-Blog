@@ -59,27 +59,16 @@ header {
     height: 50px;
     background: linear-gradient(grey,#161616, #161616);
     border-radius: 30px;
-    margin-left: 100px;
+    margin-left: 25px;
     color: white;
     font-family: 'inpin hongmengti', italic;
     padding: 4px;
     box-sizing: border-box;
+    float: left;
 }
 
 .profile-btn:active{
-    animation: profile-btn-pressed 2s infinite;
-}
-
-@keyframes profile-btn-pressed {
-    0% {
-        border: 2px solid #e3ff00;
-    }
-    75% {
-        border: 2px solid #a2ff00;
-    }
-    100% {
-        border: 2px solid #e3ff00;
-    }
+    animation: button-pressed 2s infinite;
 }
 
 .profile-btn-extra {
@@ -163,21 +152,33 @@ header {
 
 .friend-list-btn{
     aspect-ratio: 1;
-    height: 50px;
+    height: 40px;
     background: linear-gradient(grey,#161616, #161616);
     border-radius: 30px;
+    margin-left: 425px;
+    padding: 4px;
 }
 
-.friend-list-btn-extra{
+.friend-list-btn:active{
+    animation: button-pressed 2s infinite;
+}
+
+.friend-list-btn-extra {
     aspect-ratio: 1;
     height: 40px;    
     background: linear-gradient(#252525,#212121, #181818);
     border-radius: 35px;
-    margin: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.friend-list-img{
-    aspect-ratio: 1;
+.friend-list-btn-extra:active {
+    display:none;
+}
+
+.friend-list-img {
     width: 30px;
-    margin: 5px;
+    aspect-ratio: 1;
 }
