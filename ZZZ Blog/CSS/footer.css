@@ -36,14 +36,14 @@ footer{
 .btn:active{
     filter: invert();
     text-shadow: 0px 0px 0px black;
-    animation: button-pressed 1s infinite;
+    animation: footer-button-pressed 1s infinite;
 }
 
 .btn:active .btn-text {
     background-color: transparent;
 }
 
-@keyframes button-pressed {
+@keyframes footer-button-pressed {
     0% {
         background: linear-gradient(45deg, #1c00ff,#5d00ff, #1c00ff,#5d00ff, #1c00ff);
     }
