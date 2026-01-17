@@ -3,40 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>ZZZ Home Page</title>
-  <style>
-    body{
-      margin:0;
-      background-image: url('ASSETS/IMG/hq720.jpg');
-      background-size: 100%;
-      cursor: url("ASSETS/cursor.cur"),auto;
-    }
-
-    #DynamicWallpaper {
-      position: fixed;
-      right: 0;
-      bottom: 0;
-      min-width: 100%; 
-      min-height: 100%;
-      max-width: 100%;
-      z-index: -1;
-    }
-
-    html, body {
-      height: 100%; 
-    }
-
-    .page-wrapper {
-      min-height: 96.35vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .content {
-      flex: 1;
-    }
-
-
-  </style>
+  <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
     <video autoplay muted loop id="DynamicWallpaper">
@@ -48,6 +15,12 @@
 
       <main class="content"></main>
 
+      <div class="change-background-btn">
+          <div class="change-background-btn-extra">
+              <img class="change-background-img" src="ASSETS/IMG/UI/ChangeWallpaper.png">
+          </div>
+      </div>
+      
       <?php include 'footer.html' ?>
 
   </div>

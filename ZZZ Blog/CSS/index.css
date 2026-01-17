@@ -1,4 +1,65 @@
-body {
-    margin: 0;
-    min-height: 100vh;
+body{
+    margin:0;
+    background-image: url('ASSETS/IMG/hq720.jpg');
+    background-size: 100%;
+    cursor: url("ASSETS/cursor.cur"),auto;
+}
+
+#DynamicWallpaper {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    max-width: 100%;
+    z-index: -1;
+}
+
+html, body {
+    height: 100%; 
+}
+
+.page-wrapper {
+    min-height: 96.35vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+}
+
+.change-background-btn{
+    width: 60px;
+    height: 40px;
+    background: linear-gradient(grey,#161616, #161616);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    margin-bottom: 10px;
+}
+
+.change-background-btn:active{
+    filter: invert();
+    animation: footer-button-pressed 1s infinite;
+}
+
+.change-background-btn-extra{
+    width: 50px;
+    height: 35px;
+    background: linear-gradient(#252525,#212121, #181818);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.change-background-btn:active .change-background-btn-extra{
+    background: transparent;
+}
+
+.change-background-img{
+    width: 35px ;
 }
