@@ -12,12 +12,41 @@ header {
     
 }
 
+.back-btn{
+    border: 1px solid transparent;
+    aspect-ratio: 3/2;
+    height: 50px;
+    border-radius:15px 27px 27px 30px;
+    float: left;
+}
+
+.back-btn:hover{
+    border: 1px solid transparent;
+    aspect-ratio: 3/2;
+    height: 50px;
+    border-radius:15px 27px 27px 30px;
+    float: left;
+    animation: button-pressed 5s infinite;
+}
+
+@keyframes button-pressed {
+    0% {background-color: #e3ff00;}
+    100% {background-color: #a2ff00;}
+}
+
+.back-btn-img{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
 .profile-btn {
     width: 300px; /* Fixed width or use max-width */
     max-width: 100%;
     height: 50px;
     background: linear-gradient(grey,#161616, #161616);
     border-radius: 30px;
+    margin-left: 100px;
     color: white;
     font-family: 'inpin hongmengti', italic;
     padding: 4px;
