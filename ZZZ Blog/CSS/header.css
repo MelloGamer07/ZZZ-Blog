@@ -21,7 +21,7 @@ header {
 }
 
 .back-btn:active{
-    animation: button-pressed 2s infinite;
+    animation: button-pressed 1s infinite;
 }
 
 @keyframes button-pressed {
@@ -68,7 +68,7 @@ header {
 }
 
 .profile-btn:active{
-    animation: button-pressed 2s infinite;
+    animation: button-pressed 1s infinite;
 }
 
 .profile-btn-extra {
@@ -160,7 +160,7 @@ header {
 }
 
 .friend-list-btn:active{
-    animation: button-pressed 2s infinite;
+    animation: button-pressed 1s infinite;
 }
 
 .friend-list-btn-extra {
@@ -181,4 +181,5 @@ header {
 .friend-list-img {
     width: 30px;
     aspect-ratio: 1;
+    filter: drop-shadow(0px 0px 4px #000000);
 }
