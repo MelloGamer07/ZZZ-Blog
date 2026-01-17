@@ -26,7 +26,7 @@
     }
 
     .page-wrapper {
-      min-height: 100vh;
+      min-height: 96.35vh;
       display: flex;
       flex-direction: column;
     }
@@ -39,6 +39,9 @@
   </style>
 </head>
 <body>
+    <video autoplay muted loop id="DynamicWallpaper">
+       <source src="ASSETS/DynamicWallpapers/WiseDynamicWallpaper.mp4" type="video/mp4">
+    </video>
     <div class="page-wrapper">
 
       <?php include 'header.html' ?>
