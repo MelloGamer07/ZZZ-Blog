@@ -8,6 +8,7 @@
       margin:0;
       background-image: url('ASSETS/IMG/hq720.jpg');
       background-size: 100%;
+      cursor: url("ASSETS/cursor.cur"),auto;
     }
 
     #DynamicWallpaper {
