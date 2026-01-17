@@ -21,13 +21,32 @@
       z-index: -1;
     }
 
+    html, body {
+      height: 100%; 
+    }
+
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+
   </style>
 </head>
 <body>
-    <video autoplay muted loop id="DynamicWallpaper">
-      <source src="ASSETS/DynamicWallpapers/WiseDynamicWallpaper.mp4" type="video/mp4">
-    </video>
-    <?php include 'header.html' ?>
-    <?php include 'footer.html' ?>
+    <div class="page-wrapper">
+
+      <?php include 'header.html' ?>
+
+      <main class="content"></main>
+
+      <?php include 'footer.html' ?>
+
+  </div>
 </body>
 </html>
