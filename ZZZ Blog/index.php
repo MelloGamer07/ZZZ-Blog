@@ -15,12 +15,12 @@
 
       <main class="content"></main>
 
-      <div class="change-background-btn">
+      <div class="change-background-btn" onclick="window.location.pathname = 'ZZZ-Blog/ZZZ Blog/ChangeDynamicWallpaper.html';">
           <div class="change-background-btn-extra">
               <img class="change-background-img" src="ASSETS/IMG/UI/ChangeWallpaper.png">
           </div>
       </div>
-      
+
       <?php include 'footer.html' ?>
 
   </div>

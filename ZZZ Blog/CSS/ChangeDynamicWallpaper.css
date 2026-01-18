@@ -4,6 +4,78 @@
     font-display: swap;
 }
 
+body{
+    margin:0;
+    background-image: url('../ASSETS/IMG/hq720.jpg');
+    background-size: 100%;
+    cursor: url("../ASSETS/cursor.cur"),auto;
+}
+
+#DynamicWallpaper {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    max-width: 100%;
+    z-index: -1;
+    -webkit-user-drag: none;
+}
+
+html, body {
+    height: 100%; 
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+}
+
+.change-background-btn{
+    width: 75px;
+    height: 50px;
+    background: linear-gradient(grey,#161616, #161616);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    margin-bottom: 75px;
+    margin-left: 95px;
+}
+
+.change-background-btn:active{
+    filter: invert();
+    animation: footer-button-pressed 1s infinite;
+}
+
+.change-background-btn-extra{
+    width: 60px;
+    height: 40px;
+    background: linear-gradient(#252525,#212121, #181818);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+.change-background-btn:active .change-background-btn-extra{
+    background: transparent;
+}
+
+.change-background-img{
+    width: 35px ;
+    -webkit-user-drag: none;
+}
+
+
 header {
     background-color: rgba(0,0,0,0.5);
     width: 100%;
@@ -28,6 +100,7 @@ header {
     aspect-ratio: 3/2;
     height: 50px;
     border-radius:15px 27px 27px 30px;
+    float: left;
 }
 
 .back-btn:active{
@@ -75,6 +148,7 @@ header {
     font-family: 'inpin hongmengti', italic;
     padding: 4px;
     box-sizing: border-box;
+    float: left;
 }
 
 .profile-btn:active{
@@ -162,6 +236,14 @@ header {
     opacity: 0.8;
 }
 
+.title-page{
+    margin-left: 25px;
+    background: -webkit-linear-gradient(#eee, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'inpin hongmengti', italic;
+}
+
 .friend-list-btn{
     aspect-ratio: 1;
     height: 40px;
@@ -207,5 +289,101 @@ header {
     }
     100% {
         background: linear-gradient(45deg, #1c00ff,#5d00ff, #1c00ff,#5d00ff, #1c00ff);
+    }
+}
+
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 138px;
+    margin-top: auto;
+
+    background-image:
+      radial-gradient(circle at center, black 0.08rem, transparent 0),
+      radial-gradient(circle at center, black 0.08rem, transparent 0);
+    background-size: 0.6rem 0.6rem;
+    background-position: 0 0, 0.3rem 0.3rem;
+
+    mask-image: linear-gradient(rgb(0 0 0), rgb(0 0 0));
+}
+
+.footer-scroll {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    width: 100%;
+    height: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    white-space: nowrap;
+    scroll-behavior: smooth;
+
+    background-color: rgba(0,0,0,0.5);
+    padding: 0 24px;
+    box-sizing: border-box;
+    scroll-snap-type: x mandatory;
+
+}
+
+.footer-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    text-shadow: 3px 3px 2px black;
+    user-select: none;
+    flex: 0 0 auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    scroll-snap-align: center;
+    background: linear-gradient(grey,#161616, #161616);
+}
+
+.btn-extra{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    text-shadow: 3px 3px 2px black;
+    user-select: none;
+    flex: 0 0 auto;
+    width: 90px;
+    height: 90px;
+    border-radius: 100%;
+    scroll-snap-align: center;    
+    background: linear-gradient(#252525,#212121, #181818);
+}
+
+.btn:active{
+    text-shadow: 0px 0px 0px black;
+    animation: CDW-button-pressed 1s infinite;
+}
+
+.btn-img{
+    height: 85px;
+    width: 85px;
+    border-radius: 100%;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+@keyframes CDW-button-pressed {
+    0% {
+        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
+    }
+    75% {
+        background: linear-gradient(45deg, #a2ff00,#e3ff00, #a2ff00);
+    }
+    100% {
+        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
     }
 }

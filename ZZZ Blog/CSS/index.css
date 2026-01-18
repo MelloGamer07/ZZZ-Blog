@@ -1,8 +1,8 @@
 body{
     margin:0;
-    background-image: url('ASSETS/IMG/hq720.jpg');
+    background-image: url('../ASSETS/IMG/hq720.jpg');
     background-size: 100%;
-    cursor: url("ASSETS/cursor.cur"),auto;
+    cursor: url("../ASSETS/cursor.cur"),auto;
 }
 
 #DynamicWallpaper {
@@ -13,6 +13,7 @@ body{
     min-height: 100%;
     max-width: 100%;
     z-index: -1;
+    -webkit-user-drag: none;
 }
 
 html, body {
@@ -20,7 +21,7 @@ html, body {
 }
 
 .page-wrapper {
-    min-height: 96.35vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -30,15 +31,16 @@ html, body {
 }
 
 .change-background-btn{
-    width: 60px;
-    height: 40px;
+    width: 75px;
+    height: 50px;
     background: linear-gradient(grey,#161616, #161616);
     border-radius: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 999;
-    margin-bottom: 10px;
+    margin-bottom: 75px;
+    margin-left: 95px;
 }
 
 .change-background-btn:active{
@@ -47,13 +49,15 @@ html, body {
 }
 
 .change-background-btn-extra{
-    width: 50px;
-    height: 35px;
+    width: 60px;
+    height: 40px;
     background: linear-gradient(#252525,#212121, #181818);
     border-radius: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 .change-background-btn:active .change-background-btn-extra{
@@ -62,4 +66,5 @@ html, body {
 
 .change-background-img{
     width: 35px ;
+    -webkit-user-drag: none;
 }

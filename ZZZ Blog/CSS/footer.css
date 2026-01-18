@@ -8,8 +8,16 @@ footer{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
+    height: 138px;
     margin-top: auto;
+
+    background-image:
+      radial-gradient(circle at center, black 0.08rem, transparent 0),
+      radial-gradient(circle at center, black 0.08rem, transparent 0);
+    background-size: 0.6rem 0.6rem;
+    background-position: 0 0, 0.3rem 0.3rem;
+
+    mask-image: linear-gradient(rgb(0 0 0), rgb(0 0 0));
 }
 
 .footer-container{
@@ -31,6 +39,7 @@ footer{
     padding:7px 7px 0px 7px;
     border-radius: 5px;
     text-shadow: 3px 3px 2px black;
+    user-select: none;
 }
 
 .btn:active{
@@ -57,6 +66,8 @@ footer{
 
 .btn-img{
     height: 55px;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 .btn-text{
@@ -69,4 +80,13 @@ footer{
     display: flex;
     justify-content: center;
     padding: 5px;
+    user-select: none;
+}
+
+.left-border, .right-border{
+    flex: 1;
+    height: 60px;
+    background: black;
+    margin-top: auto;
+    margin-bottom: 0;
 }
