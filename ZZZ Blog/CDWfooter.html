@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ZZZ Home Page</title>
+  <link rel="stylesheet" href="CSS/ChangeDynamicWallpaper.css">
+</head>
+<body>
+    <footer>
+    <div class="footer-scroll">
+
+        <div class="btn" id="1">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/WiseIcon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="2">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/BelleIcon.png">
+            </div>
+        </div>
+
+        <div class="btn"  id="3">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/AnbyIcon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="4">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/BillyIcon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="5">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/NicoleIcon.png">
+            </div>
+        </div>
+
+        <div class="btn"  id="6">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/NekomataIcon.png">
+            </div>
+        </div>
+
+        <div class="btn"  id="7">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/AntonIcon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="8">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/KoledaIcon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="9">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/BenIcon.png">
+            </div>
+        </div>
+
+        <div class="btn"  id="10">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/LycaonIcon.png">
+            </div>
+        </div>
+
+        <div class="btn"  id="11">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/CorinIcon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="12">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/Soldier11Icon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="13">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/MiyabiIcon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="14">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/Soukaku.png">
+            </div>
+        </div>
+
+    </div>
+    </footer>
+ <script>
+  // Select all buttons
+  const buttons = document.querySelectorAll('.footer-scroll .btn');
+
+  // Get the existing video element
+  const video = document.getElementById('DynamicWallpaper');
+  const source = video.querySelector('source');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.id; // get button id
+      source.src = `ASSETS/DynamicWallpapers/DynamicWallpaper${id}.mp4`; // set new video source
+      video.load(); // reload the video
+      video.play(); // play it immediately
+    });
+  });
+</script>
+
+
+</body>
+</html>

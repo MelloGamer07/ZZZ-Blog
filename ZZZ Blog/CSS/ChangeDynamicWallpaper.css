@@ -4,7 +4,7 @@
     font-display: swap;
 }
 
-body{
+/*body{
     margin:0;
     background-image: url('../ASSETS/IMG/hq720.jpg');
     background-size: 100%;
@@ -280,7 +280,7 @@ header {
         transform: scale(100%,100%);
         background: linear-gradient(45deg, #1c00ff,#5d00ff, #1c00ff,#5d00ff, #1c00ff);
     }
-}
+}*/
 
 footer{
     display: flex;
