@@ -173,7 +173,7 @@ header {
 
 .friend-list-btn:active{
     filter: invert();
-    animation: footer-button-pressed 1s infinite;
+    animation: FL-button-pressed 1s infinite;
 }
 
 .friend-list-btn:active .friend-list-btn-extra{
@@ -198,14 +198,29 @@ header {
     -webkit-user-drag: none;
 }
 
-@keyframes footer-button-pressed {
+.title-page{
+    margin-left: 25px;
+    background: -webkit-linear-gradient(#eee, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'inpin hongmengti', italic;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+@keyframes FL-button-pressed {
     0% {
+        transform: scale(100%,100%);
         background: linear-gradient(45deg, #1c00ff,#5d00ff, #1c00ff,#5d00ff, #1c00ff);
+    }
+    50%{
+        transform: scale(110%,110%);
     }
     75% {
         background: linear-gradient(45deg, #5d00ff,#1c00ff, #5d00ff,#1c00ff, #5d00ff);
     }
     100% {
+        transform: scale(100%,100%);
         background: linear-gradient(45deg, #1c00ff,#5d00ff, #1c00ff,#5d00ff, #1c00ff);
     }
 }

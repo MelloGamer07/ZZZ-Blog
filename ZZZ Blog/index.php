@@ -7,7 +7,7 @@
 </head>
 <body>
     <video autoplay muted loop id="DynamicWallpaper">
-       <source src="ASSETS/DynamicWallpapers/WiseDynamicWallpaper.mp4" type="video/mp4">
+       <source src="ASSETS/DynamicWallpapers/DynamicWallpaper1.mp4" type="video/mp4">
     </video>
     <div class="page-wrapper">
 

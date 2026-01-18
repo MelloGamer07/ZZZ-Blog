@@ -7,11 +7,11 @@
 </head>
 <body>
     <video autoplay muted loop id="DynamicWallpaper">
-       <source src="ASSETS/DynamicWallpapers/WiseDynamicWallpaper.mp4" type="video/mp4">
+       <source src="ASSETS/DynamicWallpapers/DynamicWallpaper1.mp4" type="video/mp4">
     </video>
     <div class="page-wrapper">
         <header>
-            <div class="back-btn">
+            <div class="back-btn" onclick="history.back()">
                 <img class="back-btn-img" src="ASSETS/IMG/UI/BackButton.png">
             </div>
 
@@ -41,37 +41,114 @@
         </header>
         <main class="content"></main>
 
-        <!--div class="change-background-btn">
-            <div class="change-background-btn-extra">
-                <img class="change-background-img" src="ASSETS/IMG/UI/ChangeWallpaper.png">
-            </div>
-        </div-->
     <footer>
     <div class="footer-scroll">
 
-        <div class="btn">
+        <div class="btn" id="1">
             <div class="btn-extra">
                 <img class="btn-img" src="ASSETS/IMG/UI/Icons/WiseIcon.png">
             </div>
         </div>
 
-        <!--div class="btn">
-        <img class="btn-img" src="ASSETS/IMG/UI/Options.png">
-        <p class="btn-text">Opzioni</p>
+        <div class="btn" id="2">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/BelleIcon.png">
+            </div>
         </div>
 
-        <div class="btn">
-        <img class="btn-img" src="ASSETS/IMG/UI/NoticesIMG.png">
-        <p class="btn-text">Notizie</p>
+        <div class="btn"  id="3">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/AnbyIcon.png">
+            </div>
         </div>
 
-        <div class="btn">
-        <img class="btn-img" src="ASSETS/IMG/UI/InterKnotIMG.png">
-        <p class="btn-text">Inter-Knot</p>
-        </div-->
+        <div class="btn" id="4">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/BillyIcon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="5">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/NicoleIcon.png">
+            </div>
+        </div>
+
+        <div class="btn"  id="6">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/NekomataIcon.png">
+            </div>
+        </div>
+
+        <div class="btn"  id="7">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/AntonIcon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="8">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/KoledaIcon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="9">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/BenIcon.png">
+            </div>
+        </div>
+
+        <div class="btn"  id="10">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/LycaonIcon.png">
+            </div>
+        </div>
+
+        <div class="btn"  id="11">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/CorinIcon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="12">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/Soldier11Icon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="13">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/MiyabiIcon.png">
+            </div>
+        </div>
+
+        <div class="btn" id="14">
+            <div class="btn-extra">
+                <img class="btn-img" src="ASSETS/IMG/UI/Icons/Soukaku.png">
+            </div>
+        </div>
+
     </div>
     </footer>
 
   </div>
+  <script>
+  // Select all buttons
+  const buttons = document.querySelectorAll('.footer-scroll .btn');
+
+  // Get the existing video element
+  const video = document.getElementById('DynamicWallpaper');
+  const source = video.querySelector('source');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.id; // get button id
+      source.src = `ASSETS/DynamicWallpapers/DynamicWallpaper${id}.mp4`; // set new video source
+      video.load(); // reload the video
+      video.play(); // play it immediately
+    });
+  });
+</script>
+
 </body>
 </html>

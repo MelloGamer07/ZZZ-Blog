@@ -49,23 +49,6 @@ html, body {
     margin-left: 95px;
 }
 
-.change-background-btn:active{
-    filter: invert();
-    animation: footer-button-pressed 1s infinite;
-}
-
-.change-background-btn-extra{
-    width: 60px;
-    height: 40px;
-    background: linear-gradient(#252525,#212121, #181818);
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    -webkit-user-drag: none;
-    user-select: none;
-}
-
 .change-background-btn:active .change-background-btn-extra{
     background: transparent;
 }
@@ -242,6 +225,8 @@ header {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-family: 'inpin hongmengti', italic;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 .friend-list-btn{
@@ -282,12 +267,17 @@ header {
 
 @keyframes footer-button-pressed {
     0% {
+        transform: scale(100%,100%);
         background: linear-gradient(45deg, #1c00ff,#5d00ff, #1c00ff,#5d00ff, #1c00ff);
+    }
+    50%{
+        transform: scale(110%,110%);
     }
     75% {
         background: linear-gradient(45deg, #5d00ff,#1c00ff, #5d00ff,#1c00ff, #5d00ff);
     }
     100% {
+        transform: scale(100%,100%);
         background: linear-gradient(45deg, #1c00ff,#5d00ff, #1c00ff,#5d00ff, #1c00ff);
     }
 }
@@ -341,9 +331,11 @@ footer{
     text-shadow: 3px 3px 2px black;
     user-select: none;
     flex: 0 0 auto;
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     border-radius: 100%;
+    margin-left: 25px;
+    margin-right: -25px;
     scroll-snap-align: center;
     background: linear-gradient(grey,#161616, #161616);
 }
@@ -356,8 +348,8 @@ footer{
     text-shadow: 3px 3px 2px black;
     user-select: none;
     flex: 0 0 auto;
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
     border-radius: 100%;
     scroll-snap-align: center;    
     background: linear-gradient(#252525,#212121, #181818);
@@ -369,8 +361,8 @@ footer{
 }
 
 .btn-img{
-    height: 85px;
-    width: 85px;
+    height: 90px;
+    width: 90px;
     border-radius: 100%;
     -webkit-user-drag: none;
     user-select: none;
@@ -378,12 +370,17 @@ footer{
 
 @keyframes CDW-button-pressed {
     0% {
+        transform: scale(100%,100%);
         background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
+    }
+    50%{
+        transform: scale(105%,105%);
     }
     75% {
         background: linear-gradient(45deg, #a2ff00,#e3ff00, #a2ff00);
     }
     100% {
+        transform: scale(100%,100%);
         background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
     }
 }
