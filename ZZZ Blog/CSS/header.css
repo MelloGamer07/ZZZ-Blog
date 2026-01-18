@@ -107,6 +107,7 @@ header {
     flex: 1;
     min-width: 0;
     margin-top: -11%;
+    
 }
 
 #username {
@@ -198,15 +199,45 @@ header {
     -webkit-user-drag: none;
 }
 
-.title-page{
-    margin-left: 25px;
-    background: -webkit-linear-gradient(#eee, #333);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: 'inpin hongmengti', italic;
-    -webkit-user-drag: none;
-    user-select: none;
+.title-page {
+  position: relative;
+  margin-left: 25px;
+  font-family: 'inpin hongmengti', italic;
+  user-select: none;
 }
+
+/* gradient fill */
+.title-page {
+  background: linear-gradient(#eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* border layer */
+.title-page::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  color: #fff; /* dummy fill */
+
+  text-shadow:
+    /* top (grey) */
+    0 -2px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+
+    /* sides */
+    -2px 0 0 #000,
+    2px 0 0 #000,
+
+    /* bottom */
+    0 2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000;
+}
+
 
 @keyframes FL-button-pressed {
     0% {

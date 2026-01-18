@@ -16,6 +16,56 @@ body{
     -webkit-user-drag: none;
 }
 
+#LoadingScreen {
+    margin:0;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    background-image: url('../ASSETS/IMG/36.png');
+    background-size: auto 100%;
+    background-position: center;
+    min-width: 100%; 
+    min-height: 100%;
+    z-index: 1000;
+
+    transform-origin: left;
+    transform: scaleX(0);
+    display: none;
+}
+
+/* appear: left → right */
+@keyframes loading-in {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* disappear: left → right */
+@keyframes loading-out {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* utility classes */
+.loading-in {
+    animation: loading-in 0.5s ease forwards;
+}
+
+.loading-out {
+    animation: loading-out 0.5s ease forwards;
+}
+
 html, body {
     height: 100%; 
 }

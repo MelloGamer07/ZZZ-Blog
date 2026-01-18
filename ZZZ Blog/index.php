@@ -9,6 +9,9 @@
     <video autoplay muted loop id="DynamicWallpaper">
        <source src="ASSETS/DynamicWallpapers/DynamicWallpaper1.mp4" type="video/mp4">
     </video>
+
+    <div id="LoadingScreen"></div>
+
     <div class="page-wrapper">
 
       <?php include 'header.html' ?>
@@ -28,44 +31,78 @@
       </div>
   </div>
 
-  <script>
-  // Keep track of current footer state
-  let isDynamicFooter = false;
+    <script>
+    /* ================= Loading Screen Animation ================= */
+    const loadingScreen = document.getElementById('LoadingScreen');
+    const changeFooterBtn = document.getElementById('change-footer-btn');
 
-  // Cache main footer HTML
-  const footerContainer = document.getElementById('footer-container');
-  const mainFooterHTML = footerContainer.innerHTML;
+    function playLoadingAnimation() {
+        loadingScreen.classList.remove('loading-in', 'loading-out');
+        loadingScreen.style.display = 'block';
 
-  const video = document.getElementById('DynamicWallpaper');
-  const source = video.querySelector('source');
+        void loadingScreen.offsetWidth;
 
-  document.getElementById('change-footer-btn').addEventListener('click', function() {
-      if (!isDynamicFooter) {
-          // Load dynamic footer
-          fetch('CDWfooter.html')
-              .then(response => response.text())
-              .then(html => {
-                  footerContainer.innerHTML = html;
-                  isDynamicFooter = true;
+        loadingScreen.classList.add('loading-in');
 
-                  // Attach video-changing listeners
-                  const buttons = document.querySelectorAll('#footer-container .footer-scroll .btn');
-                  buttons.forEach(btn => {
-                      btn.addEventListener('click', () => {
-                          const id = btn.id;
-                          source.src = `ASSETS/DynamicWallpapers/DynamicWallpaper${id}.mp4`;
-                          video.load();
-                          video.play();
-                      });
-                  });
-              })
-              .catch(err => console.error('Failed to load footer:', err));
-      } else {
-          // Switch back to main footer
-          footerContainer.innerHTML = mainFooterHTML;
-          isDynamicFooter = false;
-      }
-  });
-  </script>
+        setTimeout(() => {
+            loadingScreen.classList.remove('loading-in');
+            loadingScreen.classList.add('loading-out');
+        }, 1150);
+
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+            loadingScreen.classList.remove('loading-out');
+        }, 2000);
+    }
+
+    /* ================= Footer Swap Logic ================= */
+    let isDynamicFooter = false;
+
+    const footerContainer = document.getElementById('footer-container');
+    const mainFooterHTML = footerContainer.innerHTML;
+
+    const video = document.getElementById('DynamicWallpaper');
+    const source = video.querySelector('source');
+    const title = document.getElementById('title');
+
+    changeFooterBtn.addEventListener('click', function () {
+        playLoadingAnimation();
+        setTimeout(() => {
+        if (!isDynamicFooter) {
+            title.innerHTML = "Dynamic Wallpapers";
+            title.dataset.text = "Dynamic Wallpapers";
+
+            fetch('CDWfooter.html')
+            .then(response => response.text())
+            .then(html => {
+                footerContainer.innerHTML = html;
+                isDynamicFooter = true;
+
+                const buttons = document.querySelectorAll('#footer-container .footer-scroll .btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        playLoadingAnimation();
+                        setTimeout(() => {
+                            const id = btn.id;
+                            source.src = `ASSETS/DynamicWallpapers/DynamicWallpaper${id}.mp4`;
+                            video.load();
+                            video.play();
+                        }, 500);
+                    });
+                });
+            })
+            .catch(err => console.error('Failed to load footer:', err));
+        } else {
+            footerContainer.innerHTML = mainFooterHTML;
+            title.innerHTML = "Home page";
+            title.dataset.text = "Home page";
+            isDynamicFooter = false;
+        }
+        }, 500);
+    });
+    </script>
+
+
 </body>
 </html>
