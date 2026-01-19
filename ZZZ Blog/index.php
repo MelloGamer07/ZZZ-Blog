@@ -42,6 +42,26 @@
 
         void loadingScreen.offsetWidth;
 
+        let id = Math.floor(Math.random() * 130);
+
+        if( id == 36 || id == 95 || id == 54 || id == 124){
+            let chance = Math.floor(Math.random() * 100) + 1;
+            if( chance > 1 && chance < 99){
+                let change = Math.floor(Math.random() * 100) + 1;
+                if( change > 50 ){
+                    id = id + 1;
+                } else {
+                    id = id - 1;
+                }
+            } else {
+                console.log("JACKPOT");
+            }
+        }
+
+        loadingScreen.style.backgroundImage = `url("ASSETS/IMG/LoadingScreens/${id}.jpg")`;
+        loadingScreen.style.backgroundSize = "100% auto";
+        loadingScreen.style.backgroundPosition = "center";
+
         loadingScreen.classList.add('loading-in');
 
         setTimeout(() => {
@@ -52,8 +72,9 @@
         setTimeout(() => {
             loadingScreen.style.display = 'none';
             loadingScreen.classList.remove('loading-out');
-        }, 2000);
+        }, 1250);
     }
+
 
     /* ================= Footer Swap Logic ================= */
     let isDynamicFooter = false;
