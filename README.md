@@ -1,5 +1,6 @@
-
 # ZZZ-Blog
+
+![alt text]( "Logo Title Text 1")
 
 We're no strangers to love <br>
 You know the rules and so do I<br>
