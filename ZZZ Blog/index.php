@@ -51,6 +51,7 @@
                 } else {
                     id = id - 1;
                 }
+                console.log("You lost the gamble ;/");
             } else {
                 console.log("JACKPOT");
             }
