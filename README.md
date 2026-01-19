@@ -1,6 +1,6 @@
 # ZZZ-Blog
 
-![alt text]( "Logo Title Text 1")
+![alt text](https://github.com/MelloGamer07/ZZZ-Blog/blob/main/ZZZ%20Blog/ASSETS/IMG/thukuna.png "Logo Title Text 1")
 
 We're no strangers to love <br>
 You know the rules and so do I<br>
