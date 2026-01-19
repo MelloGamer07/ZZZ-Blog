@@ -73,6 +73,21 @@
         }, 1250);
     }
 
+    /* ================ fixing the damn footer ================== */
+    function enableHorizontalScroll() {
+        const footerScroll = document.querySelector('.footer-scroll');
+        if (!footerScroll) return;
+
+        // Prevent adding multiple listeners if called multiple times
+        if (!footerScroll.dataset.scrollEnabled) {
+            footerScroll.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                footerScroll.scrollLeft += e.deltaY;
+            });
+            footerScroll.dataset.scrollEnabled = 'true';
+        }
+    }
+
 
     /* ================= Swapp Footer ================= */
     let isDynamicFooter = false;
@@ -94,8 +109,11 @@
                 fetch('CDWfooter.html?t=' + new Date().getTime())
                     .then(response => response.text())
                     .then(html => {
+                        
                         footerContainer.innerHTML = html;
                         isDynamicFooter = true;
+
+                        enableHorizontalScroll();
 
                         const buttons = footerContainer.querySelectorAll('.footer-scroll .btn');
                         buttons.forEach(btn => {
