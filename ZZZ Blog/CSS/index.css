@@ -1,6 +1,6 @@
 body{
     margin:0;
-    background-image: url('../ASSETS/IMG/hq720.jpg');
+    background-image: url('../ASSETS/IMG/LoadingScreens/0.jpg');
     background-size: 100%;
     cursor: url("../ASSETS/cursor.cur"),auto;
 }
@@ -33,7 +33,6 @@ body{
     display: none;
 }
 
-/* appear: left → right */
 @keyframes loading-in {
     0% {
         transform: translateX(-100%);
@@ -45,7 +44,6 @@ body{
     }
 }
 
-/* disappear: left → right */
 @keyframes loading-out {
     0% {
         transform: translateX(0);
@@ -57,7 +55,6 @@ body{
     }
 }
 
-/* utility classes */
 .loading-in {
     animation: loading-in 0.5s ease forwards;
 }

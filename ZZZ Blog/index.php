@@ -18,21 +18,19 @@
 
       <main class="content"></main>
 
-      <!-- Button to swap footer -->
       <div class="change-background-btn" id="change-footer-btn">
           <div class="change-background-btn-extra">
               <img class="change-background-img" src="ASSETS/IMG/UI/ChangeWallpaper.png">
           </div>
       </div>
 
-      <!-- Footer container -->
       <div id="footer-container">
           <?php include 'footer.html'; ?>
       </div>
   </div>
 
     <script>
-    /* ================= Loading Screen Animation ================= */
+    /* ================= Random Loading Screen Animation ================= */
     const loadingScreen = document.getElementById('LoadingScreen');
     const changeFooterBtn = document.getElementById('change-footer-btn');
 
@@ -76,50 +74,49 @@
     }
 
 
-    /* ================= Footer Swap Logic ================= */
+    /* ================= Swapp Footer ================= */
     let isDynamicFooter = false;
-
     const footerContainer = document.getElementById('footer-container');
     const mainFooterHTML = footerContainer.innerHTML;
-
     const video = document.getElementById('DynamicWallpaper');
     const source = video.querySelector('source');
     const title = document.getElementById('title');
 
     changeFooterBtn.addEventListener('click', function () {
         playLoadingAnimation();
+
         setTimeout(() => {
-        if (!isDynamicFooter) {
-            title.innerHTML = "Dynamic Wallpapers";
-            title.dataset.text = "Dynamic Wallpapers";
+            if (!isDynamicFooter) {
+                title.innerHTML = "Dynamic Wallpapers";
+                title.dataset.text = "Dynamic Wallpapers";
 
-            fetch('CDWfooter.html')
-            .then(response => response.text())
-            .then(html => {
-                footerContainer.innerHTML = html;
-                isDynamicFooter = true;
+                // Updated fetch cuz the broser is a bitch ahh and wont load new footer
+                fetch('CDWfooter.html?t=' + new Date().getTime())
+                    .then(response => response.text())
+                    .then(html => {
+                        footerContainer.innerHTML = html;
+                        isDynamicFooter = true;
 
-                const buttons = document.querySelectorAll('#footer-container .footer-scroll .btn');
-
-                buttons.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        playLoadingAnimation();
-                        setTimeout(() => {
-                            const id = btn.id;
-                            source.src = `ASSETS/DynamicWallpapers/DynamicWallpaper${id}.mp4`;
-                            video.load();
-                            video.play();
-                        }, 500);
-                    });
-                });
-            })
-            .catch(err => console.error('Failed to load footer:', err));
-        } else {
-            footerContainer.innerHTML = mainFooterHTML;
-            title.innerHTML = "Home page";
-            title.dataset.text = "Home page";
-            isDynamicFooter = false;
-        }
+                        const buttons = footerContainer.querySelectorAll('.footer-scroll .btn');
+                        buttons.forEach(btn => {
+                            btn.addEventListener('click', () => {
+                                playLoadingAnimation();
+                                setTimeout(() => {
+                                    const id = btn.id;
+                                    source.src = `ASSETS/DynamicWallpapers/DynamicWallpaper${id}.mp4`;
+                                    video.load();
+                                    video.play();
+                                }, 500);
+                            });
+                        });
+                    })
+                    .catch(err => console.error('Failed to load footer:', err));
+            } else {
+                footerContainer.innerHTML = mainFooterHTML;
+                title.innerHTML = "Home page";
+                title.dataset.text = "Home page";
+                isDynamicFooter = false;
+            }
         }, 500);
     });
     </script>

@@ -134,7 +134,7 @@ header {
 .lvlBar-completition {
     background: linear-gradient(135deg, #2aa8ff, #3ec1ff);
     height: 100%;
-    width: 55%;
+    width: 0%;
     margin-top: 0;
     border-radius: 10px;
 }
@@ -206,33 +206,28 @@ header {
   user-select: none;
 }
 
-/* gradient fill */
 .title-page {
   background: linear-gradient(#eee, #333);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* border layer */
 .title-page::before {
   content: attr(data-text);
   position: absolute;
   inset: 0;
   z-index: -1;
 
-  color: #fff; /* dummy fill */
+  color: #fff; 
 
   text-shadow:
-    /* top (grey) */
     0 -2px 0 #000,
     -2px -2px 0 #000,
     2px -2px 0 #000,
 
-    /* sides */
     -2px 0 0 #000,
     2px 0 0 #000,
 
-    /* bottom */
     0 2px 0 #000,
     -2px 2px 0 #000,
     2px 2px 0 #000;
