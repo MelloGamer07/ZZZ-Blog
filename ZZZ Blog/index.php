@@ -40,7 +40,7 @@
 
         void loadingScreen.offsetWidth;
 
-        let id = Math.floor(Math.random() * 130);
+        let id = Math.floor(Math.random() * 128);
 
         if( id == 36 || id == 95 || id == 54 || id == 124){
             let chance = Math.floor(Math.random() * 100) + 1;
