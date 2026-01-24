@@ -92,22 +92,7 @@ footer{
     user-select: none;
 }
 
-@keyframes CDW-button-pressed {
-    0% {
-        transform: scale(100%,100%);
-        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
-    }
-    50%{
-        transform: scale(105%,105%);
-    }
-    75% {
-        background: linear-gradient(45deg, #a2ff00,#e3ff00, #a2ff00);
-    }
-    100% {
-        transform: scale(100%,100%);
-        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
-    }
-}
+
 
 [name="first-btn"]{
     margin-left: 100px;

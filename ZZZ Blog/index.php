@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>ZZZ Home Page</title>
+  <link rel="icon" type="image/x-icon" href="ASSETS/IMG/dumbJaneDoe.png">
   <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
@@ -16,7 +17,75 @@
 
       <?php include 'header.html' ?>
 
-      <main class="content"></main>
+      <main class="content">
+
+
+        <div class="post-container">
+            <div class="post">
+                <div class="post-images"> 
+                    <img id="post-image" src="ASSETS/IMG/LoadingScreens/1.jpg">
+                </div>
+                <div class="user-info">
+                    <img id="user-pfp" src="ASSETS/IMG/Avatars/Avatar35.png">
+                </div>
+                <div class="post-content">
+                    <h3 class="post-title">Post Title - 1</h3>
+                    <p class="post-desc">random description - 1 </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="post-container">
+            <div class="post">
+                <div class="post-images"> <img id="post-image" src="ASSETS/IMG/LoadingScreens/2.jpg"></div>
+                <div class="post-content">
+                    <h3 class="post-title">Post Title - 2</h3>
+                    <p class="post-desc">random description - 2 </p>
+                </div>
+            </div>
+        </div>
+
+         <div class="post-container">
+            <div class="post">
+                <div class="post-images"> <img id="post-image" src="ASSETS/IMG/LoadingScreens/3.jpg"></div>
+                <div class="post-content">
+                    <h3 class="post-title">Post Title - 3</h3>
+                    <p class="post-desc">random description - 3 </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="post-container">
+            <div class="post">
+                <div class="post-images"> <img id="post-image" src="ASSETS/IMG/LoadingScreens/1.jpg"></div>
+                <div class="post-content">
+                    <h3 class="post-title">Post Title - 4</h3>
+                    <p class="post-desc">random description - 4 </p>
+                </div>
+            </div>
+        </div>
+
+         <div class="post-container">
+            <div class="post">
+                <div class="post-images"> <img id="post-image" src="ASSETS/IMG/LoadingScreens/2.jpg"></div>
+                <div class="post-content">
+                    <h3 class="post-title">Post Title - 5</h3>
+                    <p class="post-desc">random description - 5 </p>
+                </div>
+            </div>
+        </div>
+
+         <div class="post-container">
+            <div class="post">
+                <div class="post-images"> <img id="post-image" src="ASSETS/IMG/LoadingScreens/3.jpg"></div>
+                <div class="post-content">
+                    <h3 class="post-title">Post Title - 6</h3>
+                    <p class="post-desc">random description - 6 </p>
+                </div>
+            </div>
+        </div>
+
+    </main>
 
       <div class="change-background-btn" id="change-footer-btn">
           <div class="change-background-btn-extra">
@@ -24,10 +93,9 @@
           </div>
       </div>
 
-      <div id="footer-container">
-          <?php include 'footer.html'; ?>
-      </div>
-  </div>
+        <div id="footer-container">
+            <?php include 'footer.html'; ?>
+        </div>
 
     <script>
     /* ================= Random Loading Screen Animation ================= */
