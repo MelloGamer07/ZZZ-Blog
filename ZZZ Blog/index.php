@@ -27,60 +27,149 @@
                 </div>
                 <div class="user-info">
                     <img id="user-pfp" src="ASSETS/IMG/Avatars/Avatar35.png">
+                    <h4 id="user-name">Username 1</h4>
                 </div>
                 <div class="post-content">
                     <h3 class="post-title">Post Title - 1</h3>
-                    <p class="post-desc">random description - 1 </p>
+                    <p class="post-desc">
+                        random description - 1 
+                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
                 </div>
             </div>
         </div>
 
         <div class="post-container">
             <div class="post">
-                <div class="post-images"> <img id="post-image" src="ASSETS/IMG/LoadingScreens/2.jpg"></div>
+                <div class="post-images"> 
+                    <img id="post-image" src="ASSETS/IMG/LoadingScreens/2.jpg">
+                </div>
+                <div class="user-info">
+                    <img id="user-pfp" src="ASSETS/IMG/Avatars/Avatar22.png">
+                    <h4 id="user-name">Username 2</h4>
+                </div>
                 <div class="post-content">
                     <h3 class="post-title">Post Title - 2</h3>
-                    <p class="post-desc">random description - 2 </p>
-                </div>
-            </div>
-        </div>
-
-         <div class="post-container">
-            <div class="post">
-                <div class="post-images"> <img id="post-image" src="ASSETS/IMG/LoadingScreens/3.jpg"></div>
-                <div class="post-content">
-                    <h3 class="post-title">Post Title - 3</h3>
-                    <p class="post-desc">random description - 3 </p>
+                    <p class="post-desc">
+                        random description - 2 
+                        BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                        BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                        BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                        BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+                        BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB</p>
                 </div>
             </div>
         </div>
 
         <div class="post-container">
             <div class="post">
-                <div class="post-images"> <img id="post-image" src="ASSETS/IMG/LoadingScreens/1.jpg"></div>
+                <div class="post-images"> 
+                    <img id="post-image" src="ASSETS/IMG/LoadingScreens/3.jpg">
+                </div>
+                <div class="user-info">
+                    <img id="user-pfp" src="ASSETS/IMG/Avatars/Avatar41.png">
+                    <h4 id="user-name">Username 3</h4>
+                </div>
+                <div class="post-content">
+                    <h3 class="post-title">Post Title - 3</h3>
+                    <p class="post-desc">
+                        random description - 3 
+                        CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+                        CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+                        CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+                        CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+                        CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="post-container">
+            <div class="post">
+                <div class="post-images"> 
+                    <img id="post-image" src="ASSETS/IMG/LoadingScreens/4.jpg">
+                </div>
+                <div class="user-info">
+                    <img id="user-pfp" src="ASSETS/IMG/Avatars/Avatar14.png">
+                    <h4 id="user-name">Username 4</h4>
+                </div>
                 <div class="post-content">
                     <h3 class="post-title">Post Title - 4</h3>
-                    <p class="post-desc">random description - 4 </p>
+                    <p class="post-desc">
+                        random description - 4 
+                        DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+                        DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+                        DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+                        DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+                        DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD</p>
                 </div>
             </div>
         </div>
 
-         <div class="post-container">
+        <div class="post-container">
             <div class="post">
-                <div class="post-images"> <img id="post-image" src="ASSETS/IMG/LoadingScreens/2.jpg"></div>
+                <div class="post-images"> 
+                    <img id="post-image" src="ASSETS/IMG/LoadingScreens/5.jpg">
+                </div>
+                <div class="user-info">
+                    <img id="user-pfp" src="ASSETS/IMG/Avatars/Avatar27.png">
+                    <h4 id="user-name">Username 5</h4>
+                </div>
                 <div class="post-content">
                     <h3 class="post-title">Post Title - 5</h3>
-                    <p class="post-desc">random description - 5 </p>
+                    <p class="post-desc">
+                        random description - 5 
+                        EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                        EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                        EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                        EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                        EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE</p>
                 </div>
             </div>
         </div>
 
-         <div class="post-container">
+        <div class="post-container">
             <div class="post">
-                <div class="post-images"> <img id="post-image" src="ASSETS/IMG/LoadingScreens/3.jpg"></div>
+                <div class="post-images"> 
+                    <img id="post-image" src="ASSETS/IMG/LoadingScreens/6.jpg">
+                </div>
+                <div class="user-info">
+                    <img id="user-pfp" src="ASSETS/IMG/Avatars/Avatar17.png">
+                    <h4 id="user-name">Username 6</h4>
+                </div>
                 <div class="post-content">
                     <h3 class="post-title">Post Title - 6</h3>
-                    <p class="post-desc">random description - 6 </p>
+                    <p class="post-desc">
+                        random description - 6 
+                        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="post-container">
+            <div class="post">
+                <div class="post-images"> 
+                    <img id="post-image" src="ASSETS/IMG/LoadingScreens/7.jpg">
+                </div>
+                <div class="user-info">
+                    <img id="user-pfp" src="ASSETS/IMG/Avatars/Avatar34.png">
+                    <h4 id="user-name">Username 7</h4>
+                </div>
+                <div class="post-content">
+                    <h3 class="post-title">Post Title - 7</h3>
+                    <p class="post-desc">
+                        random description - 7 
+                        GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+                        GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+                        GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+                        GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+                        GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</p>
                 </div>
             </div>
         </div>
