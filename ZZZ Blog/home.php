@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>ZZZ Home Page</title>
   <link rel="icon" type="image/x-icon" href="ASSETS/IMG/dumbJaneDoe.png">
-  <link rel="stylesheet" href="CSS/index.css">
+  <link rel="stylesheet" href="CSS/home.css">
 </head>
 <body>
     <video autoplay muted loop id="DynamicWallpaper">
@@ -20,8 +20,8 @@
       <main class="content" id="posts">
 
 
-        <div class="post-container">
-            <div class="post">
+        <div class="post-container" id="1">
+            <div class="post" onclick="openModal(this);">
                 <div class="post-images"> 
                     <img id="post-image-preview" src="ASSETS/IMG/LoadingScreens/1.jpg">
                 </div>
@@ -36,8 +36,8 @@
             </div>
         </div>
 
-        <div class="post-container">
-            <div class="post">
+        <div class="post-container" id="2">
+            <div class="post" onclick="openModal(this);">
                 <div class="post-images"> 
                     <img id="post-image-preview" src="ASSETS/IMG/LoadingScreens/2.jpg">
                 </div>
@@ -52,8 +52,8 @@
             </div>
         </div>
 
-        <div class="post-container">
-            <div class="post">
+        <div class="post-container" id="3">
+            <div class="post" onclick="openModal(this);">
                 <div class="post-images"> 
                     <img id="post-image-preview" src="ASSETS/IMG/LoadingScreens/3.jpg">
                 </div>
@@ -68,8 +68,8 @@
             </div>
         </div>
 
-        <div class="post-container">
-            <div class="post">
+        <div class="post-container" id="4">
+            <div class="post" onclick="openModal(this);">
                 <div class="post-images"> 
                     <img id="post-image-preview" src="ASSETS/IMG/LoadingScreens/4.jpg">
                 </div>
@@ -84,8 +84,8 @@
             </div>
         </div>
 
-        <div class="post-container">
-            <div class="post">
+        <div class="post-container" id="5">
+            <div class="post" onclick="openModal(this);">
                 <div class="post-images"> 
                     <img id="post-image-preview" src="ASSETS/IMG/LoadingScreens/5.jpg">
                 </div>
@@ -100,8 +100,8 @@
             </div>
         </div>
 
-        <div class="post-container">
-            <div class="post">
+        <div class="post-container" id="6">
+            <div class="post" onclick="openModal(this);">
                 <div class="post-images"> 
                     <img id="post-image-preview" src="ASSETS/IMG/LoadingScreens/6.jpg">
                 </div>
@@ -117,7 +117,7 @@
         </div>
 
         <div class="post-container" id="7" >
-            <div class="post" onclick="showIt(this);">
+            <div class="post" onclick="openModal(this);">
                 <div class="post-images"> 
                     <img id="post-image-preview" src="ASSETS/IMG/LoadingScreens/7.jpg">
                 </div>
@@ -141,7 +141,7 @@
                 <img id="post-user-pfp" src="ASSETS/IMG/Avatars/Avatar34.png">
                 <h2 id="post-user-name">Username 7</h2>
                 <div class="post-likes"> <p>❤️ <span id="num-likes">69420</span></p> </div>
-
+                <img src="">
             </div>
 
             <div class="post-main">
@@ -152,9 +152,8 @@
                     <div id="post-content">
                         <h3 id="post-title">Why Progress Feels Meaningful</h3>
                         <p id="post-text">Advancement in Zenless Zone Zero is structured around relationships as much as stats. Unlocking abilities often coincides with learning more about an agent’s past, motivations, or fears. This intertwining of growth and story makes upgrades feel earned rather than arbitrary. You are not simply optimizing numbers; you are investing in people. The result is a progression loop that reinforces attachment, encouraging players to care about team composition beyond efficiency. In a genre often dominated by abstraction, this approach gives development a narrative spine, turning mechanical improvement into a reflection of trust and shared experience.</p>
-                        <p id="post-text">Advancement in Zenless Zone Zero is structured around relationships as much as stats. Unlocking abilities often coincides with learning more about an agent’s past, motivations, or fears. This intertwining of growth and story makes upgrades feel earned rather than arbitrary. You are not simply optimizing numbers; you are investing in people. The result is a progression loop that reinforces attachment, encouraging players to care about team composition beyond efficiency. In a genre often dominated by abstraction, this approach gives development a narrative spine, turning mechanical improvement into a reflection of trust and shared experience.</p>
                         <div class="post-comments">
-                            <div class="comment">
+                            <div class="comment" id="1">
                                 <div class="comment-body">
                                     <div class="comment-header">
                                         <img id="comment-user-pfp" src="ASSETS/IMG/Avatars/Avatar4.png">
@@ -163,13 +162,13 @@
                                     <p class="comment-user-text">Linking progression to relationships is such a strong point, and you explained it really well. I definitely care more about agents whose stories I’ve unlocked, not just their stats. This makes me more patient with building teams slowly instead of rushing toward efficiency.</p>
                                 </div>
                             </div>
-                            <div class="comment">
+                            <div class="comment" id="2">
                                 <div class="comment-body">
                                     <div class="comment-header">
-                                        <img id="comment-user-pfp" src="ASSETS/IMG/Avatars/Avatar4.png">
-                                        <h5 class="comment-user-name">Username 8</h5>
+                                        <img id="comment-user-pfp" src="ASSETS/IMG/Avatars/Avatar3.png">
+                                        <h5 class="comment-user-name">Username 9</h5>
                                     </div>
-                                    <p class="comment-user-text">Linking progression to relationships is such a strong point, and you explained it really well. I definitely care more about agents whose stories I’ve unlocked, not just their stats. This makes me more patient with building teams slowly instead of rushing toward efficiency.</p>
+                                    <p class="comment-user-text">I agree that tying upgrades to story makes progression feel less mechanical. It also motivates me to try agents I might otherwise ignore. When I unlock more of their background, I end up caring about team balance in a more personal way.</p>
                                 </div>
                             </div>
                         </div>
@@ -188,7 +187,6 @@
     <div id="footer-container">
         <?php include 'footer.html'; ?>
     </div>
-
     <script src="JS/home.js"></script>
 </body>
 </html>

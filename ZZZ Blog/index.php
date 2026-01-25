@@ -1,6 +1,5 @@
 <?php 
     include("login.html");
-    
 ?>  
 
 <div class="button">
