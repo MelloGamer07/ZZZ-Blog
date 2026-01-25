@@ -1,141 +1,126 @@
-function showIt(element) {
-    var parent = element.parentNode;
-    alert(parent.id);
-}
+/*document.addEventListener("click", () => {
+  const Audio = document.getElementById("Audio");
+  Audio.play();
+}, { once: true });*/
 
-const modal = document.getElementById('modal-post');
 
-function openModal(){
-    document.body.style.overflow = "hidden";
-}
 
-modal.addEventListener('click', function () {
-    modal.style.display = "none";
-    document.body.style.overflow = "auto";
+/* -------------------------------
+   SHOW/HIDE LOGIN MODAL
+-------------------------------- */
+
+const login = document.querySelector('.login');
+const blur = document.querySelector('.blur1');
+const AttentionInputsUsername = document.getElementById("AttentionInputsUsername");
+const AttentionInputsPassword = document.getElementById("AttentionInputsPassword");
+
+document.querySelector('.button').addEventListener('click', () => {
+    login.style.display = "flex";
+    blur.style.display = "flex";
+    blur.style.zIndex = 1;
+    setTimeout(() => {
+        login.style.opacity = 1;
+        blur.style.opacity = 0.8;
+    }, 50);
 });
 
-/* ================= Random Loading Screen Animation ================= */
-const loadingScreen = document.getElementById('LoadingScreen');
-const changeFooterBtn = document.getElementById('change-footer-btn');
+document.querySelector('.blur1').addEventListener('click', () => {
+    Behind();
+});
 
-function playLoadingAnimation() {
-    loadingScreen.classList.remove('loading-in', 'loading-out');
-    loadingScreen.style.display = 'block';
+document.querySelector('.ImgHeaderBehind').addEventListener('click', () => {
+    Behind();
+});
 
-    void loadingScreen.offsetWidth;
+function Behind(){
+  AttentionInputsUsername.style.opacity = 0;
+  AttentionInputsPassword.style.opacity = 0;
+  login.style.opacity = 0;
+  blur.style.opacity = 0;
+  setTimeout(() => {
+      login.style.display = "none";
+      blur.style.display = "none";
+      blur.style.zIndex = -5;
+  }, 200);
+}
 
-    let id = Math.floor(Math.random() * 128);
 
-    if( id == 36 || id == 95 || id == 54 || id == 124){
-        let chance = Math.floor(Math.random() * 100) + 1;
-        if( chance > 1 && chance < 99){
-            let change = Math.floor(Math.random() * 100) + 1;
-            if( change > 50 ){
-                id = id + 1;
-            } else {
-                id = id - 1;
-            }
-            console.log("You lost the gamble ;/");
-        } else {
-            console.log("JACKPOT");
-        }
+/* -------------------------------
+   NAVIGATION LINKS
+-------------------------------- */
+
+document.querySelector('.R').addEventListener('click', () => {
+    window.location.href = "Register.php";
+});
+
+document.querySelector('.P').addEventListener('click', () => {
+    window.location.href = "ForgotPassword.php";
+});
+
+
+/* -------------------------------
+   FORM ELEMENTS AND VALIDATION
+-------------------------------- */
+
+const Username = document.getElementById("Username1");
+const Password = document.getElementById("Password1");
+const form = document.getElementById("Form1");
+
+const AttentionUsernameText = document.getElementById("AttentionUsernameText");
+
+form.addEventListener('submit', (e) => {
+    if (!validateUsername() || !validatePassword()) {
+        e.preventDefault();
     }
+});
 
-    loadingScreen.style.backgroundImage = `url("ASSETS/IMG/LoadingScreens/${id}.jpg")`;
-    loadingScreen.style.backgroundSize = "100% auto";
-    loadingScreen.style.backgroundPosition = "center";
 
-    loadingScreen.classList.add('loading-in');
+/* -------------------------------
+   USERNAME VALIDATION
+-------------------------------- */
 
-    setTimeout(() => {
-        loadingScreen.classList.remove('loading-in');
-        loadingScreen.classList.add('loading-out');
-    }, 1150);
-
-    setTimeout(() => {
-        loadingScreen.style.display = 'none';
-        loadingScreen.classList.remove('loading-out');
-    }, 1250);
-}
-
-/* ================ fixing the damn footer ================== */
-function enableHorizontalScroll() {
-    const footerScroll = document.querySelector('.footer-scroll');
-    if (!footerScroll) return;
-
-    // Prevent adding multiple listeners if called multiple times
-    if (!footerScroll.dataset.scrollEnabled) {
-        footerScroll.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            footerScroll.scrollLeft += e.deltaY;
-        });
-        footerScroll.dataset.scrollEnabled = 'true';
+function validateUsername() {
+    if (Username.value.trim() === '') {
+        showUsernameError("Please enter username");
+        return false;
     }
+    hideUsernameError();
+    return true;
+}
+
+function showUsernameError(message) {
+    AttentionInputsUsername.style.display = "block";
+    AttentionUsernameText.textContent = message;
+    setTimeout(() => AttentionInputsUsername.style.opacity = 1, 50);
+}
+
+function hideUsernameError() {
+    AttentionInputsUsername.style.opacity = 0;
+    setTimeout(() => AttentionInputsUsername.style.display = "none", 200);
 }
 
 
-/* ================= Swapp Footer ================= */
-let isDynamicFooter = false;
-const footerContainer = document.getElementById('footer-container');
-const mainFooterHTML = footerContainer.innerHTML;
-const video = document.getElementById('DynamicWallpaper');
-const source = video.querySelector('source');
-const title = document.getElementById('title');
+/* -------------------------------
+   PASSWORD VALIDATION
+-------------------------------- */
 
-changeFooterBtn.addEventListener('click', function () {
-    playLoadingAnimation();
+function validatePassword() {
+    const password = Password.value;
+    if (password.trim() === '') {
+        showPasswordError("Please enter your password");
+        return false;
+    }
+    hidePasswordError();
+    return true;
+}
 
-    setTimeout(() => {
-        if (!isDynamicFooter) {
-            title.innerHTML = "Dynamic Wallpapers";
-            title.dataset.text = "Dynamic Wallpapers";
+function showPasswordError(message) {
+    AttentionInputsPassword.textContent = message;
+    AttentionInputsPassword.style.display = "block";
+    setTimeout(() => AttentionInputsPassword.style.opacity = 1, 50);
+}
 
-            // Updated fetch cuz the broser is a bitch ahh and wont load new footer
-            fetch('CDWfooter.html?t=' + new Date().getTime())
-                .then(response => response.text())
-                .then(html => {
-                    
-                    footerContainer.innerHTML = html;
-                    isDynamicFooter = true;
-
-                    enableHorizontalScroll();
-
-                    const buttons = footerContainer.querySelectorAll('.footer-scroll .btn');
-                    buttons.forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            playLoadingAnimation();
-                            setTimeout(() => {
-                                const id = btn.id;
-                                source.src = `ASSETS/DynamicWallpapers/DynamicWallpaper${id}.mp4`;
-                                video.load();
-                                video.play();
-                            }, 500);
-                        });
-                    });
-                })
-                .catch(err => console.error('Failed to load footer:', err));
-        } else {
-            footerContainer.innerHTML = mainFooterHTML;
-            title.innerHTML = "Home page";
-            title.dataset.text = "Home page";
-            isDynamicFooter = false;
-        }
-    }, 500);
-});
-
-const interKnot = document.getElementById('interKnot');
-const posts = document.getElementById('posts');
-let isInterKnot = false;
-interKnot.addEventListener('click', function () {
-    setTimeout(() => {
-        if(isInterKnot == false){
-            posts.style.display = "grid";
-            isInterKnot  = true;
-        } else {
-            posts.style.display = "none";
-            isInterKnot  = false;
-        }
-    }, 500);
-    
-    playLoadingAnimation();  
-});
+function hidePasswordError() {
+    AttentionInputsPassword.style.opacity = 0;
+    setTimeout(() => AttentionInputsPassword.style.display = "none", 200);
+}
