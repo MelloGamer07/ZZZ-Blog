@@ -242,11 +242,16 @@ html, body {
 }
 
 .post-desc{
-    margin-top: -20px;
+    margin-top: -16px;
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 100%;
     max-height: 130px;
+    font-size: 16px;
+}
+
+.post-container:hover .post-desc{
+    font-size: 0.96em;
 }
 
 .post-modal-container{
