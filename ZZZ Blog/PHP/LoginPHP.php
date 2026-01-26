@@ -2,6 +2,9 @@
     $Username = $_POST["Username1"];
     $Password = $_POST["Password1"];
 
+    session_start();
+    $_SESSION['Username'] = $Username;
+
     $hostname = "localhost";
     $username = "root";
     $password = "";

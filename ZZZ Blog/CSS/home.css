@@ -5,6 +5,10 @@ body{
     cursor: url("../ASSETS/cursor.cur"),auto;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 #DynamicWallpaper {
     position: fixed;
     right: 0;
@@ -246,12 +250,18 @@ html, body {
 }
 
 .post-modal-container{
-    display: block;
+    display: none;
     width: 100%;
     height: 100%;
     position: fixed;
     margin: 0;
-    z-index: 1000;
+    z-index: 1000;background: repeating-linear-gradient(
+    45deg,
+    #1b1b1bde,
+    #1b1b1bde 5px,
+    #030404de 5px,
+    #030404de 10px
+    );
 }
 
 .post-modal{
@@ -271,6 +281,10 @@ html, body {
     animation: showPostModal 1s normal;
 }
 
+.close-modal{
+    animation: hidePostModal 1s normal;
+}
+
 @keyframes showPostModal {
     0% {
         transform: scale(0%,0%);
@@ -280,6 +294,17 @@ html, body {
     }
     100% {
         transform: scale(100%,100%);
+    }
+}
+@keyframes hidePostModal {
+    0% {
+        transform: scale(100%,100%);
+    }
+    50%{
+        transform: scale(105%,105%);
+    }
+    100% {
+        transform: scale(0%,0%);
     }
 }
 
@@ -342,16 +367,23 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 30px 10px 50px 30px;
 }
 
-.post-exit-button:hover{
+
+.post-exit-button:active{
     animation: button-pressed 1s infinite;
 }
+.post-exit-button:active .post-exit-button-img{
+    display: none;
+}
+
 
 .post-exit-button-img{
-    width: 89px;
-    height: 59px;
+    width: 85px;
+    height: 56px;
 }
+
 
 .post-main{
     display: flex;

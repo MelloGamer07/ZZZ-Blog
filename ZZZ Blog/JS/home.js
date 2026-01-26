@@ -124,13 +124,21 @@ function editModal(id){
 
 modal.addEventListener('click', function (e) {
     if (e.target === modal) {
+        modal.classList.add('close-modal');
+        setTimeout(() => {
+        modal.classList.remove('close-modal');
         modal.style.display = "none";
+    }, 1000);
         document.body.style.overflow = "auto";
     }
 });
 
 function closeModal(){
-    modal.style.display = "none";
+    modal.classList.add('close-modal');
+    setTimeout(() => {
+        modal.classList.remove('close-modal');
+        modal.style.display = "none";
+    }, 1000);
     document.body.style.overflow = "auto";
 }
 
@@ -248,16 +256,16 @@ const interKnot = document.getElementById('interKnot');
 const posts = document.getElementById('posts');
 let isInterKnot = false;
 interKnot.addEventListener('click', function () {
-        setTimeout(() => {
-            if(isInterKnot == false){
-                posts.style.display = "grid";
-                isInterKnot  = true;
-            } else {
-                posts.style.display = "none";
-                isInterKnot  = false;
-            }
-        }, 500);
-    
+    setTimeout(() => {
+        if(isInterKnot == false){
+            posts.style.display = "grid";
+            isInterKnot  = true;
+        } else {
+            posts.style.display = "none";
+            isInterKnot  = false;
+        }
+    }, 500);
+
     playLoadingAnimation();  
 });
 
