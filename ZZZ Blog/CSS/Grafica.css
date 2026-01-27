@@ -1,3 +1,5 @@
+/* ================= Reset & Base ================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -10,6 +12,9 @@ body {
     background-color: black;
 }
 
+
+/* ================= Font ================= */
+
 @font-face {
     font-family: 'inpin hongmengti';
     src: url('../ASSETS/ZZZ.ttf') format('truetype');
@@ -17,7 +22,9 @@ body {
     font-style: normal;
 }
 
+
 /* VIDEO BACKGROUND*/
+
 .background {
   position: fixed;
   z-index: -1;
@@ -50,7 +57,6 @@ body {
     #030404 5px,
     #030404 10px
     );
-
 }
 
 .blur1 {
@@ -62,6 +68,9 @@ body {
     display: block;
     z-index: 1;
 }
+
+
+/* ================= Main Buttons ================= */
 
 .button {
     position: absolute;
@@ -88,8 +97,14 @@ body {
     cursor: pointer;
 }
 
+.button:active{
+    animation: button-pressed 1s infinite;
+    border: 0;
+    outline: 0;
+    color: white;
+}
+
 .buttonLogin {
-    margin-top: 10px;
     position: relative;
 
     width: 70%;
@@ -119,6 +134,9 @@ body {
     color: white;
 }
 
+
+/* ================= Inputs ================= */
+
 .input {
     margin-top: 10px;
     position: relative;
@@ -146,6 +164,9 @@ body {
     border: 4px solid #e3ff00;
 }
 
+
+/* ================= Register / Password Row ================= */
+
 .Reg-Pas {
     margin-top: 20px;
     position: relative;
@@ -167,43 +188,9 @@ body {
     cursor: pointer;
     margin: 0; 
 }
-.button:active{
-    animation: button-pressed 1s infinite;
-    border: 0;
-    outline: 0;
-    color: white;
-}
 
-@keyframes button-pressedLogin {
-    0% {
-        transform: scaleY(1);
-        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
-    }
-    50%{
-        transform: scaleY(1.1);
-    }
-    75% {
-        background: linear-gradient(45deg, #a2ff00,#e3ff00, #a2ff00);
-    }
-    100% {
-        transform: scaleY(1);
-        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
-    }
-}
 
-@keyframes button-pressed {
-    0% {
-        transform: translateX(-50%) scaleY(1);
-        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
-    }
-    50%{
-        transform: translateX(-50%) scaleY(1.1);
-    }
-    100%{
-        transform: translateX(-50%) scaleY(1);
-        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
-    }
-}
+/* ================= Panels ================= */
 
 .login, .register, .forgotPassword {
     flex-direction: column;                
@@ -230,7 +217,6 @@ body {
     border: 4px solid black;
     transition: opacity 0.3s ease;
     border-radius: 25px 0px 25px 25px;
-
 }
 
 .register {
@@ -244,6 +230,9 @@ body {
     display: block;
     height: 485px;
 }
+
+
+/* ================= Header ================= */
 
 .header-login{
     position: relative;   
@@ -297,21 +286,8 @@ body {
 
 .ImgHeaderBehind:active #IMG{ display: none; }
 
-@keyframes footer-button-pressed {
-    0% {
-        transform: scaleY(1);
-        background-image: linear-gradient(45deg, #1c00ff,#5d00ff, #1c00ff,#5d00ff, #1c00ff);
-        
-    }
-    75% {
-        transform: scaleY(1.1);
-        background-image: linear-gradient(45deg, #5d00ff,#1c00ff, #5d00ff,#1c00ff, #5d00ff);
-    }
-    100% {
-        transform: scaleY(1);
-        background-image: linear-gradient(45deg, #1c00ff,#5d00ff, #1c00ff,#5d00ff, #1c00ff);
-    }
-}
+
+/* ================= Body ================= */
 
 .body-login{
     display: flex;
@@ -331,17 +307,15 @@ body {
     background-size: cover;
 }
 
+
+/* ================= Attention Inputs ================= */
+
 .AttentionInputsEmail {
     position: absolute;
     left: 50%;
     top: 15px;
     transform: translateX(-50%);
     z-index: 2;
-
-    width: auto;
-    height: auto;
-
-    box-sizing: border-box;
 
     background-color: #090909;
     color: white;
@@ -375,11 +349,6 @@ body {
     transform: translateX(-50%);
     z-index: 2;
 
-    width: auto;
-    height: auto;
-
-    box-sizing: border-box;
-
     background-color: #090909;
     color: white;
     font-style: italic;
@@ -405,25 +374,11 @@ body {
     animation: slide 8s linear infinite;
 }
 
-@keyframes slide {
-    0% {
-        transform: translateX(30%);
-    }
-    100% {
-        transform: translateX(-250%);
-    }
-}
-
 .AttentionInputsPassword {
     position: absolute;
     left: 50%;
     top: 100px;
     transform: translateX(-50%);
-
-    width: auto;
-    height: auto;
-
-    box-sizing: border-box;
 
     background-color: #090909;
     color: white;
@@ -444,6 +399,9 @@ body {
     opacity: 0;
     transition: opacity 2s ease;
 }
+
+
+/* ================= Footer ================= */
 
 .footer {
     background-color: #090909;
@@ -476,4 +434,62 @@ body {
     transition: 0.2s;
     cursor: pointer;
     text-decoration: underline;
+}
+
+
+/* ================= Animations ================= */
+
+@keyframes button-pressedLogin {
+    0% {
+        transform: scaleY(1);
+        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
+    }
+    50%{
+        transform: scaleY(1.1);
+    }
+    75% {
+        background: linear-gradient(45deg, #a2ff00,#e3ff00, #a2ff00);
+    }
+    100% {
+        transform: scaleY(1);
+        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
+    }
+}
+
+@keyframes button-pressed {
+    0% {
+        transform: translateX(-50%) scaleY(1);
+        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
+    }
+    50%{
+        transform: translateX(-50%) scaleY(1.1);
+    }
+    100%{
+        transform: translateX(-50%) scaleY(1);
+        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
+    }
+}
+
+@keyframes footer-button-pressed {
+    0% {
+        transform: scaleY(1);
+        background-image: linear-gradient(45deg, #1c00ff,#5d00ff, #1c00ff,#5d00ff, #1c00ff);
+    }
+    75% {
+        transform: scaleY(1.1);
+        background-image: linear-gradient(45deg, #5d00ff,#1c00ff, #5d00ff,#1c00ff, #5d00ff);
+    }
+    100% {
+        transform: scaleY(1);
+        background-image: linear-gradient(45deg, #1c00ff,#5d00ff, #1c00ff,#5d00ff, #1c00ff);
+    }
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(30%);
+    }
+    100% {
+        transform: translateX(-250%);
+    }
 }

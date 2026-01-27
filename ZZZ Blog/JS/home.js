@@ -1,3 +1,5 @@
+/* ================= Element References ================= */
+
 const modal = document.getElementById('modal-post');
 
 const postUsername = document.getElementById('post-user-name');
@@ -6,6 +8,21 @@ const postTitle = document.getElementById('post-title');
 const postText = document.getElementById('post-text');
 const comment1 = document.getElementById('comment1');
 const comment2 = document.getElementById('comment2');
+
+const loadingScreen = document.getElementById('LoadingScreen');
+const changeFooterBtn = document.getElementById('change-footer-btn');
+
+const footerContainer = document.getElementById('footer-container');
+const mainFooterHTML = footerContainer.innerHTML;
+const video = document.getElementById('DynamicWallpaper');
+const source = video.querySelector('source');
+const title = document.getElementById('title');
+
+const interKnot = document.getElementById('interKnot');
+const posts = document.getElementById('posts');
+
+
+/* ================= Modal Functions ================= */
 
 function openModal(element){
     var parent = element.parentNode;
@@ -20,6 +37,29 @@ function openModal(element){
         loadingScreen.classList.remove('open-modal');
     }, 1150);
 }
+
+function closeModal(){
+    modal.classList.add('close-modal');
+    setTimeout(() => {
+        modal.classList.remove('close-modal');
+        modal.style.display = "none";
+    }, 1000);
+    document.body.style.overflow = "auto";
+}
+
+modal.addEventListener('click', function (e) {
+    if (e.target === modal) {
+        modal.classList.add('close-modal');
+        setTimeout(() => {
+        modal.classList.remove('close-modal');
+        modal.style.display = "none";
+    }, 1000);
+        document.body.style.overflow = "auto";
+    }
+});
+
+
+/* ================= Modal Content ================= */
 
 function editModal(id){
     if(id == 1){
@@ -122,29 +162,8 @@ function editModal(id){
     }
 }
 
-modal.addEventListener('click', function (e) {
-    if (e.target === modal) {
-        modal.classList.add('close-modal');
-        setTimeout(() => {
-        modal.classList.remove('close-modal');
-        modal.style.display = "none";
-    }, 1000);
-        document.body.style.overflow = "auto";
-    }
-});
-
-function closeModal(){
-    modal.classList.add('close-modal');
-    setTimeout(() => {
-        modal.classList.remove('close-modal');
-        modal.style.display = "none";
-    }, 1000);
-    document.body.style.overflow = "auto";
-}
 
 /* ================= Random Loading Screen Animation ================= */
-const loadingScreen = document.getElementById('LoadingScreen');
-const changeFooterBtn = document.getElementById('change-footer-btn');
 
 function playLoadingAnimation() {
     loadingScreen.classList.remove('loading-in', 'loading-out');
@@ -186,7 +205,9 @@ function playLoadingAnimation() {
     }, 1250);
 }
 
+
 /* ================ fixing the damn footer ================== */
+
 function enableHorizontalScroll() {
     const footerScroll = document.querySelector('.footer-scroll');
     if (!footerScroll) return;
@@ -203,12 +224,8 @@ function enableHorizontalScroll() {
 
 
 /* ================= Swapp Footer ================= */
+
 let isDynamicFooter = false;
-const footerContainer = document.getElementById('footer-container');
-const mainFooterHTML = footerContainer.innerHTML;
-const video = document.getElementById('DynamicWallpaper');
-const source = video.querySelector('source');
-const title = document.getElementById('title');
 
 changeFooterBtn.addEventListener('click', function () {
     playLoadingAnimation();
@@ -252,9 +269,11 @@ changeFooterBtn.addEventListener('click', function () {
     }, 500);
 });
 
-const interKnot = document.getElementById('interKnot');
-const posts = document.getElementById('posts');
+
+/* ================= InterKnot Toggle ================= */
+
 let isInterKnot = false;
+
 interKnot.addEventListener('click', function () {
     setTimeout(() => {
         if(isInterKnot == false){

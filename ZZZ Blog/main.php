@@ -1,4 +1,4 @@
-<?php
+<!--?php
     $hostname = "localhost";
     $username = "root";
     $password = "";
@@ -78,7 +78,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         
         
         
-        <!--<div class="post-container" id="2">
+        <--<div class="post-container" id="2">
             <div class="post" onclick="openModal(this);">
                 <div class="post-images"> 
                     <img id="post-image-preview" src="ASSETS/IMG/LoadingScreens/2.jpg">

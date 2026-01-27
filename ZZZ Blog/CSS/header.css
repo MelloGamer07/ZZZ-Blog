@@ -1,8 +1,13 @@
+/* ================= Font ================= */
+
 @font-face {
     font-family: 'InpinHongmengti';
     src: url('../ASSETS/ZZZ.ttf') format('truetype');
     font-display: swap;
 }
+
+
+/* ================= Header ================= */
 
 header {
     position: fixed;
@@ -24,10 +29,14 @@ header {
 
     mask-image: linear-gradient(rgb(0 0 0), rgb(0 0 0));
     -webkit-user-drag: none;
+
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
+
+
+/* ================= Back Button ================= */
 
 .back-btn{
     border: 1px solid transparent;
@@ -38,23 +47,6 @@ header {
 
 .back-btn:active{
     animation: button-pressed 1s infinite;
-}
-
-@keyframes button-pressed {
-    0% {
-        transform: scale(100%,100%);
-        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
-    }
-    50%{
-        transform: scale(110%,110%);
-    }
-    75% {
-        background: linear-gradient(45deg, #a2ff00,#e3ff00, #a2ff00);
-    }
-    100% {
-        transform: scale(100%,100%);
-        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
-    }
 }
 
 .back-btn-img{
@@ -70,8 +62,11 @@ header {
     display: none;
 }
 
+
+/* ================= Profile Button ================= */
+
 .profile-btn {
-    width: 300px;
+    width: 400px;
     max-width: 100%;
     height: 50px;
     background: linear-gradient(grey,#161616, #161616);
@@ -81,6 +76,10 @@ header {
     font-family: 'inpin hongmengti', italic;
     padding: 4px;
     box-sizing: border-box;
+    
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
 }
 
 .profile-btn:active{
@@ -92,12 +91,17 @@ header {
     border-radius: 25px;
     height: 43px;
     padding: 4px;
+    width: 395px;
     display: flex;
     align-items: center;
     gap: 10px;
     box-sizing: border-box;
     user-select: none;
+    overflow: hidden;
 }
+
+
+/* ================= Profile Info ================= */
 
 .pfp {
     width: 40px;
@@ -112,8 +116,7 @@ header {
 .user-data {
     flex: 1;
     min-width: 0;
-    margin-top: -11%;
-    
+    margin-top: -45px;
 }
 
 #username {
@@ -125,6 +128,9 @@ header {
     text-overflow: ellipsis;
     font-family: 'InpinHongmengti', sans-serif;
 }
+
+
+/* ================= Level Bar ================= */
 
 .lvlBar-container {
     background-color: black;
@@ -147,14 +153,14 @@ header {
 
 .user-level-container {
     display: flex;
-    align-items: center;
-    margin-top: -19%;
-    margin-left: 75%;
     flex-direction: column;
     align-items: center;
+
+    margin-top: -45px;
+    margin-left: auto;
+    margin-right: -250px;
     font-family: 'InpinHongmengti', sans-serif;
 }
-
 
 #user-lvl {
     font-size: 1.5rem;
@@ -169,41 +175,7 @@ header {
     opacity: 0.8;
 }
 
-.friend-list-btn{
-    aspect-ratio: 1;
-    height: 40px;
-    background: linear-gradient(grey,#161616, #161616);
-    border-radius: 30px;
-    margin-left: 25px;
-    padding: 4px;
-}
-
-.friend-list-btn:active{
-    filter: invert();
-    animation: FL-button-pressed 1s infinite;
-}
-
-.friend-list-btn:active .friend-list-btn-extra{
-    background: transparent;
-}
-
-.friend-list-btn-extra {
-    aspect-ratio: 1;
-    height: 40px;    
-    background: linear-gradient(#252525,#212121, #181818);
-    border-radius: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.friend-list-img {
-    width: 30px;
-    aspect-ratio: 1;
-    filter: drop-shadow(0px 0px 4px #000000);
-    user-select: none;
-    -webkit-user-drag: none;
-}
+/* ================= Title ================= */
 
 .title-page {
   position: relative;
@@ -239,6 +211,25 @@ header {
     2px 2px 0 #000;
 }
 
+
+/* ================= Animations ================= */
+
+@keyframes button-pressed {
+    0% {
+        transform: scale(100%,100%);
+        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
+    }
+    50%{
+        transform: scale(110%,110%);
+    }
+    75% {
+        background: linear-gradient(45deg, #a2ff00,#e3ff00, #a2ff00);
+    }
+    100% {
+        transform: scale(100%,100%);
+        background: linear-gradient(45deg, #e3ff00,#a2ff00, #e3ff00);
+    }
+}
 
 @keyframes FL-button-pressed {
     0% {

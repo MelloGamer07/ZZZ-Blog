@@ -1,3 +1,5 @@
+/* ================= Base / Global ================= */
+
 body{
     margin:0;
     background-image: url('../ASSETS/IMG/LoadingScreens/0.jpg');
@@ -5,9 +7,16 @@ body{
     cursor: url("../ASSETS/cursor.cur"),auto;
 }
 
+html, body {
+    height: 100%; 
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
+
+
+/* ================= Background Video ================= */
 
 #DynamicWallpaper {
     position: fixed;
@@ -19,6 +28,9 @@ body{
     z-index: -1;
     -webkit-user-drag: none;
 }
+
+
+/* ================= Loading Screen ================= */
 
 #LoadingScreen {
     margin:0;
@@ -67,9 +79,8 @@ body{
     animation: loading-out 0.5s ease forwards;
 }
 
-html, body {
-    height: 100%; 
-}
+
+/* ================= Page Layout ================= */
 
 .page-wrapper {
     min-height: 100vh;
@@ -88,6 +99,9 @@ html, body {
     padding-bottom: 175px;
 }
 
+
+/* ================= Footer ================= */
+
 #footer-container {
     position: fixed;
     bottom: 0;
@@ -95,6 +109,9 @@ html, body {
     width: 100%;
     z-index: 998;
 }
+
+
+/* ================= Change Background Button ================= */
 
 .change-background-btn {
     position: fixed;
@@ -135,6 +152,9 @@ html, body {
     width: 35px ;
     -webkit-user-drag: none;
 }
+
+
+/* ================= Post Grid Cards ================= */
 
 .post-container{
     margin:0px;
@@ -195,19 +215,20 @@ html, body {
     overflow: hidden;
 }
 
-
 #post-image-preview{
     width: auto;
     height: 100%;
     border-radius: 10px 10px 0px 0px;
 }
 
+
+/* ================= Post Card Header ================= */
+
 .user-info{
     display: flex;
     align-items: normal;
     justify-content: flex-start;
 }
-
 
 #user-pfp{
     width: 50px;
@@ -227,6 +248,8 @@ html, body {
     border-style: none none solid none;
 }
 
+
+/* ================= Post Card Content ================= */
 
 .post-content{
     padding-left:4px;
@@ -253,6 +276,9 @@ html, body {
 .post-container:hover .post-desc{
     font-size: 0.96em;
 }
+
+
+/* ================= Modal Overlay ================= */
 
 .post-modal-container{
     display: none;
@@ -301,6 +327,7 @@ html, body {
         transform: scale(100%,100%);
     }
 }
+
 @keyframes hidePostModal {
     0% {
         transform: scale(100%,100%);
@@ -312,6 +339,9 @@ html, body {
         transform: scale(0%,0%);
     }
 }
+
+
+/* ================= Modal Header ================= */
 
 .post-header{
     width: 100%;
@@ -364,6 +394,9 @@ html, body {
     margin-top: 40px;
 }
 
+
+/* ================= Modal Exit Button ================= */
+
 .post-exit-button{
     width: 94px;
     height:62px;
@@ -375,20 +408,21 @@ html, body {
     border-radius: 30px 10px 50px 30px;
 }
 
-
 .post-exit-button:active{
     animation: button-pressed 1s infinite;
 }
+
 .post-exit-button:active .post-exit-button-img{
     display: none;
 }
-
 
 .post-exit-button-img{
     width: 85px;
     height: 56px;
 }
 
+
+/* ================= Modal Main Content ================= */
 
 .post-main{
     display: flex;
@@ -445,6 +479,9 @@ html, body {
     max-width: 100%;
     max-height: 75px;
 }
+
+
+/* ================= Comments ================= */
 
 .post-comments{
     width: 100%;

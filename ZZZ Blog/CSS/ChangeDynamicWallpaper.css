@@ -1,17 +1,22 @@
+/* ================= Font ================= */
+
 @font-face {
     font-family: 'InpinHongmengti';
     src: url('../ASSETS/ZZZ.ttf') format('truetype');
     font-display: swap;
 }
 
+
+/* ================= Footer Container ================= */
+
 footer{
+    position: relative;
+
     display: flex;
     align-items: center;
     justify-content: center;
     height: 138px;
     margin-top: auto;
-
-    position: relative;
 
     background-image:
       radial-gradient(circle at center, black 0.08rem, transparent 0),
@@ -21,6 +26,9 @@ footer{
 
     mask-image: linear-gradient(rgb(0 0 0), rgb(0 0 0));
 }
+
+
+/* ================= Scroll Area ================= */
 
 .footer-scroll {
     display: flex;
@@ -35,48 +43,56 @@ footer{
 
     white-space: nowrap;
     scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
 
     background-color: rgba(0,0,0,0.5);
     padding: 0 25px;
     box-sizing: border-box;
-    scroll-snap-type: x mandatory;
-
 }
 
 .footer-scroll::-webkit-scrollbar {
     display: none;
 }
 
+
+/* ================= Buttons ================= */
+
 .btn{
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 5px;
-    text-shadow: 3px 3px 2px black;
-    user-select: none;
+
     flex: 0 0 auto;
     width: 110px;
     height: 110px;
+
     border-radius: 100%;
     margin-left: auto;
     margin-right: auto;
-    scroll-snap-align: center;
+
     background: linear-gradient(grey,#161616, #161616);
+    text-shadow: 3px 3px 2px black;
+    user-select: none;
+
+    scroll-snap-align: center;
 }
 
 .btn-extra{
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 5px;
-    text-shadow: 3px 3px 2px black;
-    user-select: none;
+
     flex: 0 0 auto;
     width: 100px;
     height: 100px;
+
     border-radius: 100%;
-    scroll-snap-align: center;    
     background: linear-gradient(#252525,#212121, #181818);
+
+    text-shadow: 3px 3px 2px black;
+    user-select: none;
+
+    scroll-snap-align: center;    
 }
 
 .btn:active{
@@ -93,6 +109,7 @@ footer{
 }
 
 
+/* ================= Edge Spacing Buttons ================= */
 
 [name="first-btn"]{
     margin-left: 100px;
@@ -102,26 +119,46 @@ footer{
     margin-right: 100px;
 }
 
+
+/* ================= Arrow Overlays ================= */
+
 .left-arrow, .right-arrow {
     position: absolute;
     top: 0;
+
     height: 100%;
     width: 115px;
+
     display: flex;
     align-items: center;
 }
 
 .left-arrow {
-    justify-content: flex-end;
-    background: linear-gradient(90deg,rgba(0,0,0,1),rgba(0,0,0,0.66), rgba(0,0,0,0) );
     left: 0px;
+    justify-content: flex-end;
+
+    background: linear-gradient(
+        90deg,
+        rgba(0,0,0,1),
+        rgba(0,0,0,0.66),
+        rgba(0,0,0,0)
+    );
 }
 
 .right-arrow {
-    justify-content: flex-start;
-    background: linear-gradient(90deg,rgba(0,0,0,0),rgba(0,0,0,0.66), rgba(0,0,0,1) );
     right: 0px; 
+    justify-content: flex-start;
+
+    background: linear-gradient(
+        90deg,
+        rgba(0,0,0,0),
+        rgba(0,0,0,0.66),
+        rgba(0,0,0,1)
+    );
 }
+
+
+/* ================= Arrow Images ================= */
 
 #left-arrowIMG {
     height: 40px;
