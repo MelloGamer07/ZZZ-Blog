@@ -1,6 +1,3 @@
-<?php
-    
-?>
 <html>
 <head>
 <link rel="stylesheet" href="CSS/header.css">
@@ -13,7 +10,7 @@
 
     <div class="profile-btn">
         <div class="profile-btn-extra">
-            <img class="pfp" src="ASSETS/IMG/Avatars/Avatar0.png">
+            <?php echo '<img class="pfp" src="ASSETS/IMG/Avatars/Avatar' . $AvatarID . '.png">' ?>
             <div class="user-data">
                 <p id="username"><?= $Username ?></p>
                 <div class="lvlBar-container">

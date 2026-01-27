@@ -1,4 +1,4 @@
-<!--?php
+<?php
     $hostname = "localhost";
     $username = "root";
     $password = "";
@@ -10,10 +10,19 @@
     }
 
     $query = "
-    SELECT *
+    SELECT 
+        a.Id AS PostId,
+        a.Title,
+        a.Descrizione,
+        a.Img,
+        a.DataCreazione,
+        a.numLike,
+        u.Username,
+        u.Avatar
     FROM Articolo a
     JOIN Utente u ON a.IdUser = u.Id
-    ORDER BY a.DataCreazione DESC LIMIT 10
+    ORDER BY a.DataCreazione DESC
+    LIMIT 10
     ";
     $result = mysqli_query($conn, $query);
 
@@ -23,15 +32,23 @@
 while ($row = mysqli_fetch_assoc($result)) {
 
     echo '
-    <div class="post-container" id="post-' . $row['Id'] . '">
+    <div class="post-container"
+        id="' . $row['PostId'] . '"
+        data-title="' . htmlspecialchars($row['Title']) . '"
+        data-desc="' . htmlspecialchars($row['Descrizione']) . '"
+        data-img="' . $row['Img'] . '"
+        data-likes="' . $row['numLike'] . '"
+        data-user="' . htmlspecialchars($row['Username']) . '"
+        data-avatar="' . $row['Avatar'] . '">
+
         <div class="post" onclick="openModal(this);">
-            <div class="post-images"> 
-                <img id="post-image-preview" src="' . $row['Img'] . '" alt="">
+            <div class="post-images">
+                <img class="post-image-preview" src="' . $row['Img'] . '" alt="">
             </div>
 
             <div class="user-info">
-                <img id="user-pfp" src="ASSETS/IMG/Avatars/Avatar' . $row['Avatar'] . '.png" alt="">
-                <h4 id="user-name">' . $row['Username'] . '</h4>
+                <img class="user-pfp" src="ASSETS/IMG/Avatars/Avatar' . $row['Avatar'] . '.png" alt="">
+                <h4 class="user-name">' . $row['Username'] . '</h4>
             </div>
 
             <div class="post-content">
@@ -41,8 +58,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
     </div>
     ';
-
-    }
+}
 
     mysqli_close($conn);
 ?>
@@ -78,7 +94,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         
         
         
-        <--<div class="post-container" id="2">
+        <!--<div class="post-container" id="2">
             <div class="post" onclick="openModal(this);">
                 <div class="post-images"> 
                     <img id="post-image-preview" src="ASSETS/IMG/LoadingScreens/2.jpg">

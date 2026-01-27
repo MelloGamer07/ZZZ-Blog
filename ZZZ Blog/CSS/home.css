@@ -111,6 +111,49 @@ html, body {
 }
 
 
+/* ================= Plus Button ================= */
+
+.plus-btn {
+    position: fixed;
+    bottom: 175px;        
+    right: 35px;
+    width: 75px;
+    height: 50px;
+    background: linear-gradient(grey,#161616, #161616);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.plus-btn:active{
+    filter: invert();
+    animation: footer-button-pressed 1s infinite;
+}
+
+.plus-btn-extra{
+    width: 60px;
+    height: 40px;
+    background: linear-gradient(#252525,#212121, #181818);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+.plus-btn:active .plus-btn-extra{
+    background: transparent;
+}
+
+.plus-img{
+    width: 35px ;
+    -webkit-user-drag: none;
+}
+
+
 /* ================= Change Background Button ================= */
 
 .change-background-btn {
@@ -215,7 +258,7 @@ html, body {
     overflow: hidden;
 }
 
-#post-image-preview{
+.post-image-preview{
     width: auto;
     height: 100%;
     border-radius: 10px 10px 0px 0px;
@@ -230,7 +273,7 @@ html, body {
     justify-content: flex-start;
 }
 
-#user-pfp{
+.user-pfp{
     width: 50px;
     height: 50px;
     border: 4px solid #222222;
@@ -239,7 +282,7 @@ html, body {
     margin-left: 5px;
 }
 
-#user-name{
+.user-name{
     margin-left: 5px;
     margin-top: 4px;
     width: 210px;
@@ -254,6 +297,10 @@ html, body {
 .post-content{
     padding-left:4px;
     margin-top: -33px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
 }
 
 .post-title{
@@ -374,7 +421,7 @@ html, body {
 #post-user-name{
     color: #808080;
     margin-left: 15px;
-    margin-top: -10px;
+    /*margin-top: -10px;*/
 }
 
 .post-likes{
@@ -390,8 +437,10 @@ html, body {
 
     border-radius: 25px;
 
-    margin-left: -165px;
-    margin-top: 40px;
+
+    margin-left: 25px;
+   /* margin-left: -165px;
+    margin-top: 40px;*/
 }
 
 
@@ -438,8 +487,16 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 3px solid #323232;
+
+    border: 3px solid #202020;
     border-radius: 15px;
+
+    background-color: #323232;
+
+    background-image: url('../ASSETS/IMG/UI/plus.png');
+    background-size: 75px 75px;
+    background-position: center;
+    background-repeat: no-repeat;
 
     margin-left: 30px;
 }
@@ -530,4 +587,53 @@ html, body {
     color: #bdbdbd;
     font-size: 0.9rem;
     line-height: 1.45;
+}
+
+#add-post-title{
+    height: 37px;
+    width: 675px;
+    color: #fff;
+    padding-left: 10px;
+    background-color: #323232;
+    border-radius: 12px ;
+    border: 3px solid #161616;
+    font-family: 'inpin hongmengti', italic;
+    font-size: 18px;
+}
+
+#add-post-text{
+    height: 225px;
+    width: 667px;
+    margin-top: 15px;
+    color: #fff;
+    padding: 10px;
+    background-color: #323232;
+    border-radius: 12px ;
+    border: 3px solid #161616;
+    font-family: 'inpin hongmengti', italic;
+    font-size: 0.95em;
+    resize: vertical;
+    max-height: 307px;
+}
+
+.add-post-send{
+    height: 45px;
+    width: 695px;
+    margin-top: 15px;
+    color: #fff;
+    background-color: #323232;
+    border-radius: 12px ;
+    border: 3px solid #161616;
+    font-family: 'inpin hongmengti', italic;
+    cursor: pointer;
+}
+
+#add-post-img{
+    width: 180px;
+    display: none;
+}
+
+#send-post-form{
+    display: flex;
+    align-items: center;
 }
