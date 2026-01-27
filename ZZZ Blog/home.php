@@ -1,3 +1,13 @@
+<?php
+    session_start();
+    $Username = $_SESSION['Username'] ?? "Guest";
+    $IDUsername = $_SESSION['IdUsername'];
+    if (empty($IDUsername)) {
+        echo '<script>alert("Bruh")</script>';
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

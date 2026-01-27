@@ -1,6 +1,5 @@
 <?php
-    session_start();
-    $Username = $_SESSION['Username'] ?? "Guest";
+    
 ?>
 <html>
 <head>

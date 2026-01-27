@@ -1,21 +1,84 @@
+<?php
+    $hostname = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "zzz_2";
 
-        <div class="post-container" id="1">
-            <div class="post" onclick="openModal(this);">
-                <div class="post-images"> 
-                    <img id="post-image-preview" src="ASSETS/IMG/LoadingScreens/1.jpg">
-                </div>
-                <div class="user-info">
-                    <img id="user-pfp" src="ASSETS/IMG/Avatars/Avatar35.png">
-                    <h4 id="user-name">Username 1</h4>
-                </div>
-                <div class="post-content">
-                    <h3 class="post-title">Life Inside the Hollow</h3>
-                    <p class="post-desc">Zenless Zone Zero does an exceptional job of making New Eridu feel alive, even though the city exists on the edge of total collapse. Walking through Sixth Street, you can sense how people have adapted to a world where Hollows are not rare disasters but a constant background threat. Shops sell survival gear beside snacks, and conversations casually reference evacuations the way other cities might mention traffic. This setting quietly reinforces the game’s central tension: normal life persists, but only because people refuse to surrender to fear. The contrast between colorful storefronts and the looming danger of the Hollows creates a tone that is both playful and uneasy, reminding players that every commission is part of a much larger struggle for stability.</p>
-                </div>
+    $conn = mysqli_connect($hostname, $username, "", $database);
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $query = "
+    SELECT *
+    FROM Articolo a
+    JOIN Utente u ON a.IdUser = u.Id
+    ORDER BY a.DataCreazione DESC LIMIT 10
+    ";
+    $result = mysqli_query($conn, $query);
+
+
+    $counter = 0;
+
+while ($row = mysqli_fetch_assoc($result)) {
+
+    echo '
+    <div class="post-container" id="post-' . $row['Id'] . '">
+        <div class="post" onclick="openModal(this);">
+            <div class="post-images"> 
+                <img id="post-image-preview" src="' . $row['Img'] . '" alt="">
+            </div>
+
+            <div class="user-info">
+                <img id="user-pfp" src="ASSETS/IMG/Avatars/Avatar' . $row['Avatar'] . '.png" alt="">
+                <h4 id="user-name">' . $row['Username'] . '</h4>
+            </div>
+
+            <div class="post-content">
+                <h3 class="post-title">' . $row['Title'] . '</h3>
+                <p class="post-desc">' . $row['Descrizione'] . '</p>
             </div>
         </div>
+    </div>
+    ';
 
-        <div class="post-container" id="2">
+    }
+
+    mysqli_close($conn);
+?>
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!--<div class="post-container" id="2">
             <div class="post" onclick="openModal(this);">
                 <div class="post-images"> 
                     <img id="post-image-preview" src="ASSETS/IMG/LoadingScreens/2.jpg">
@@ -315,4 +378,4 @@
                     <p class="post-desc">What lingers after a session is often not the boss fight, but the walk back through the city. Zenless Zone Zero excels at downtime: browsing shops, overhearing conversations, and checking messages from agents. These small interactions ground the high-stakes action in everyday routine. They also remind players that the city survives not because of grand victories, but because people keep opening stores, repairing signs, and telling jokes. This pacing prevents burnout and gives emotional context to danger. By valuing stillness as much as spectacle, the game builds a rhythm that feels sustainable and human.</p>
                 </div>
             </div>
-        </div>
+        </div>-->

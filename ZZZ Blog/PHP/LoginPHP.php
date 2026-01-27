@@ -4,6 +4,7 @@
 
     session_start();
     $_SESSION['Username'] = $Username;
+    $_SESSION['IdUsername'];
 
     $hostname = "localhost";
     $username = "root";
@@ -23,6 +24,7 @@
 
     while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
         if($row["Username"] === $Username){
+            $_SESSION['IdUsername'] = $row['Id'];
             $usernameExists = true;
         }
         if($row["PasswordHash"] === $Password){
