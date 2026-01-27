@@ -137,7 +137,6 @@ function enableHorizontalScroll() {
     const footerScroll = document.querySelector('.footer-scroll');
     if (!footerScroll) return;
 
-    // Prevent adding multiple listeners if called multiple times
     if (!footerScroll.dataset.scrollEnabled) {
         footerScroll.addEventListener('wheel', (e) => {
             e.preventDefault();
@@ -232,7 +231,6 @@ function bindInterKnot() {
     });
 }
 
-// Function to load a given HTML file into the modal container
     function loadModal(fileName) {
         fetch(fileName + '?t=' + new Date().getTime())
             .then(response => response.text())
@@ -244,12 +242,10 @@ function bindInterKnot() {
             .catch(err => console.error('Error loading modal:', err));
     }
 
-    // Switch to addPostModal.html
     function switchToAddPostModal() {
         loadModal('addPostModal.html');
     }
 
-    // Switch back to postModal.html
     function switchToPostModal() {
         loadModal('postModal.html');
     }
@@ -272,10 +268,10 @@ function bindInterKnot() {
             if (e.target === fileInput) {
                 if (fileInput.files.length > 0) {
                     const file = fileInput.files[0];
-                    const imageUrl = URL.createObjectURL(file); // create a temporary URL
+                    const imageUrl = URL.createObjectURL(file);
                     fileDiv.style.backgroundImage = `url(${imageUrl})`;
-                    fileDiv.style.backgroundSize = 'cover';      // optional: make it cover the div
-                    fileDiv.style.backgroundPosition = 'center'; // optional: center the image
+                    fileDiv.style.backgroundSize = 'cover';      
+                    fileDiv.style.backgroundPosition = 'center'; 
                     fileInput.style.opacity = 0;
                 }
             }
@@ -301,7 +297,6 @@ function editModal(postId) {
     const post = document.getElementById(postId);
     if (!post) return;
 
-    // wait until modal exists
     const modalCheck = setInterval(() => {
         const postTitle = document.getElementById('post-title');
         const postText = document.getElementById('post-text');
@@ -313,9 +308,8 @@ function editModal(postId) {
 
         if (!postTitle || !postText || !postUsername || !postUserPfp || !postImg || !postLikes) return;
 
-        clearInterval(modalCheck); // stop checking once it exists
+        clearInterval(modalCheck);
 
-        // fill modal
         postTitle.textContent = post.dataset.title;
         postText.textContent = post.dataset.desc;
         postUsername.textContent = post.dataset.user;
