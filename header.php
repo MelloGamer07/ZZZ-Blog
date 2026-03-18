@@ -1,6 +1,22 @@
 <?php
-    require_once 'PHP/levelSystem.php';
-    $levelData = getLevelData((int)($UserXP ?? 0));
+require_once 'PHP/levelSystem.php';
+
+// Fetch XP directly — don't rely on the including page to set $UserXP
+$_headerXP = 0;
+if (!empty($IDUser) && $IDUser !== -1) {
+    $_headerConn = mysqli_connect("localhost", "root", "", "zzz_2");
+    if ($_headerConn) {
+        $stmt = $_headerConn->prepare("SELECT XP FROM Utente WHERE Id = ? LIMIT 1");
+        $stmt->bind_param("i", $IDUser);
+        $stmt->execute();
+        $stmt->bind_result($_headerXP);
+        $stmt->fetch();
+        $stmt->close();
+        mysqli_close($_headerConn);
+    }
+}
+
+$levelData = getLevelData((int)$_headerXP);
 ?>
 
 <header>

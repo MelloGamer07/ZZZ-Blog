@@ -1,26 +1,75 @@
-// --- Set URL hash to current profile ID on load ---
-const currentProfileId = <?php echo $utente['Id']; ?>;
-window.location.hash = '#user/' + currentProfileId;
+// All PHP variables are injected by ProfilePage.php via window.PAGE_DATA
 
-// --- XP bar animation ---
 document.addEventListener('DOMContentLoaded', () => {
+    // --- XP Bar ---
     const bar = document.querySelector('.profile-lvlBar-container');
-    if (!bar) return;
+    if (bar) {
+        const fill    = bar.querySelector('.profile-lvlBar-completition');
+        const percent = parseFloat(bar.dataset.percent) || 0;
+        const current = bar.dataset.xpCurrent;
+        const needed  = bar.dataset.xpNeeded;
 
-    const fill    = bar.querySelector('.profile-lvlBar-completition');
-    const percent = parseFloat(bar.dataset.percent) || 0;
-    const current = bar.dataset.xpCurrent;
-    const needed  = bar.dataset.xpNeeded;
+        requestAnimationFrame(() => {
+            fill.style.transition = 'width 1s cubic-bezier(0.4, 0, 0.2, 1)';
+            fill.style.width = percent + '%';
+        });
 
-    requestAnimationFrame(() => {
-        fill.style.transition = 'width 1s cubic-bezier(0.4, 0, 0.2, 1)';
-        fill.style.width = percent + '%';
+        bar.title = `${current} / ${needed} XP`;
+    }
+
+    // --- Set URL hash ---
+    window.location.hash = '#user/' + window.PAGE_DATA.profileId;
+
+    // --- Logout Modal ---
+    const logoutOverlay = document.getElementById('logoutModalOverlay');
+    if (logoutOverlay) {
+        logoutOverlay.addEventListener('click', function(e) {
+            if (e.target === this) closeLogoutModal();
+        });
+    }
+
+    // --- Edit Modal ---
+    const editOverlay = document.getElementById('editModalOverlay');
+    if (editOverlay) {
+        editOverlay.addEventListener('click', function(e) {
+            if (e.target === this) closeEditModal();
+        });
+    }
+
+    // --- Avatar Picker ---
+    const avatarOverlay = document.getElementById('avatarPickerOverlay');
+    if (avatarOverlay) {
+        avatarOverlay.addEventListener('click', function(e) {
+            if (e.target === this) closeAvatarPicker();
+        });
+    }
+
+    // --- Escape key closes all modals ---
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeLogoutModal();
+            const searchOverlay = document.getElementById('searchModalOverlay');
+            if (searchOverlay) searchOverlay.classList.remove('active');
+            closeAvatarPicker();
+            closeEditModal();
+        }
     });
-
-    bar.title = `${current} / ${needed} XP`;
 });
 
-// --- Search Modal ---
+// ============================================================
+// Logout Modal
+// ============================================================
+function openLogoutModal() {
+    document.getElementById('logoutModalOverlay').classList.add('active');
+}
+
+function closeLogoutModal() {
+    document.getElementById('logoutModalOverlay').classList.remove('active');
+}
+
+// ============================================================
+// Search Modal
+// ============================================================
 function openSearchModal() {
     document.getElementById('searchModalOverlay').classList.add('active');
     setTimeout(() => document.getElementById('searchInput').focus(), 50);
@@ -34,15 +83,6 @@ function closeSearchModal(e) {
     }
 }
 
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        document.getElementById('searchModalOverlay').classList.remove('active');
-        closeAvatarPicker();
-        closeEditModal();
-    }
-});
-
-// --- Live Search ---
 let searchTimeout;
 function searchUsers(query) {
     clearTimeout(searchTimeout);
@@ -87,11 +127,13 @@ function goToProfile(userId) {
     window.location.href = 'ProfilePage.php?id=' + userId + '#user/' + userId;
 }
 
-// --- Follow Button ---
-let isFollowing = <?php echo $isFollowing ? 'true' : 'false'; ?>;
+// ============================================================
+// Follow Button
+// ============================================================
+let isFollowing = window.PAGE_DATA?.isFollowing ?? false;
 
 function toggleFollow(userId) {
-    const btn = document.getElementById('followBtn');
+    const btn  = document.getElementById('followBtn');
     const text = document.getElementById('follow-btn-text');
 
     isFollowing = !isFollowing;
@@ -123,20 +165,16 @@ function toggleFollow(userId) {
     });
 }
 
-// ================================================================
-//  EDIT INFO MODAL
-// ================================================================
-
-// Track the avatar index the user has selected (may differ from saved)
-let pendingAvatarIndex = <?php echo intval($utente['Avatar']); ?>;
+// ============================================================
+// Edit Profile Modal
+// ============================================================
+let pendingAvatarIndex = window.PAGE_DATA?.avatarIndex ?? 0;
 
 function openEditModal() {
-    // Reset feedback
     document.getElementById('editFeedback').textContent = '';
     document.getElementById('editFeedback').className = 'edit-feedback';
 
-    // Sync preview to current saved avatar
-    pendingAvatarIndex = <?php echo intval($utente['Avatar']); ?>;
+    pendingAvatarIndex = window.PAGE_DATA.avatarIndex;
     document.getElementById('editAvatarPreview').src =
         'ASSETS/IMG/Avatars/Avatar' + pendingAvatarIndex + '.png';
 
@@ -144,15 +182,10 @@ function openEditModal() {
 }
 
 function closeEditModal() {
-    document.getElementById('editModalOverlay').classList.remove('active');
+    const el = document.getElementById('editModalOverlay');
+    if (el) el.classList.remove('active');
 }
 
-// Close edit modal when clicking outside its box
-document.getElementById('editModalOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeEditModal();
-});
-
-// Character counter helper
 function updateCharCount(inputId, counterId, max) {
     const len = document.getElementById(inputId).value.length;
     const el  = document.getElementById(counterId);
@@ -161,7 +194,6 @@ function updateCharCount(inputId, counterId, max) {
         (len >= max ? ' over' : len >= max * 0.85 ? ' warn' : '');
 }
 
-// Save profile via AJAX
 function saveProfile() {
     const username = document.getElementById('editUsername').value.trim();
     const desc     = document.getElementById('editDesc').value.trim();
@@ -179,9 +211,9 @@ function saveProfile() {
     feedback.className = 'edit-feedback';
 
     const body = new URLSearchParams({
-        username:   username,
-        desc:       desc,
-        avatar_id:  pendingAvatarIndex
+        username:  username,
+        desc:      desc,
+        avatar_id: pendingAvatarIndex
     });
 
     fetch('PHP/updateProfile.php', {
@@ -199,9 +231,8 @@ function saveProfile() {
             return;
         }
 
-        // Update page live
         const newAvatarSrc = 'ASSETS/IMG/Avatars/Avatar' + pendingAvatarIndex + '.png';
-        document.getElementById('profilePfp').src      = newAvatarSrc;
+        document.getElementById('profilePfp').src             = newAvatarSrc;
         document.getElementById('profileUsername').textContent = username;
         document.getElementById('profileDesc').textContent     = desc || username;
 
@@ -217,15 +248,14 @@ function saveProfile() {
     });
 }
 
-// ================================================================
-//  AVATAR PICKER MODAL
-// ================================================================
-
-const AVATAR_COUNT = 58; // Avatar0 … Avatar57
+// ============================================================
+// Avatar Picker
+// ============================================================
+const AVATAR_COUNT = 58;
 
 function buildAvatarGrid() {
     const grid = document.getElementById('avatarGrid');
-    if (grid.childElementCount > 0) return; // already built
+    if (!grid || grid.childElementCount > 0) return;
 
     for (let i = 0; i < AVATAR_COUNT; i++) {
         const item = document.createElement('div');
@@ -234,8 +264,8 @@ function buildAvatarGrid() {
         item.innerHTML = `
             <div class="avatar-circle">
                 <img src="ASSETS/IMG/Avatars/Avatar${i}.png"
-                        onerror="this.src='ASSETS/IMG/Avatars/Avatar0.png'"
-                        alt="Avatar ${i}">
+                     onerror="this.src='ASSETS/IMG/Avatars/Avatar0.png'"
+                     alt="Avatar ${i}">
             </div>`;
         item.addEventListener('click', () => selectAvatar(i));
         grid.appendChild(item);
@@ -244,36 +274,22 @@ function buildAvatarGrid() {
 
 function openAvatarPicker() {
     buildAvatarGrid();
-
-    // Highlight current pending selection
     document.querySelectorAll('.avatar-grid-item').forEach(el => {
         el.classList.toggle('selected', parseInt(el.dataset.index) === pendingAvatarIndex);
     });
-
     document.getElementById('avatarPickerOverlay').classList.add('active');
 }
 
 function closeAvatarPicker() {
-    document.getElementById('avatarPickerOverlay').classList.remove('active');
+    const el = document.getElementById('avatarPickerOverlay');
+    if (el) el.classList.remove('active');
 }
-
-// Close avatar picker when clicking outside
-document.getElementById('avatarPickerOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeAvatarPicker();
-});
 
 function selectAvatar(index) {
     pendingAvatarIndex = index;
-
-    // Update selection highlight in grid
     document.querySelectorAll('.avatar-grid-item').forEach(el => {
         el.classList.toggle('selected', parseInt(el.dataset.index) === index);
     });
-
-    // Update the preview back in the edit modal
-    const newSrc = 'ASSETS/IMG/Avatars/Avatar' + index + '.png';
-    document.getElementById('editAvatarPreview').src = newSrc;
-
-    // Short delay so user sees the selection, then go back
+    document.getElementById('editAvatarPreview').src = 'ASSETS/IMG/Avatars/Avatar' + index + '.png';
     setTimeout(closeAvatarPicker, 180);
 }

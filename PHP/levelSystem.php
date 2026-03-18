@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * levelSystem.php
  * Include this file wherever level data is needed.
  *
@@ -13,15 +13,12 @@
  */
 
 
-/**
- * Returns the total XP required to reach a given level.
- */
 function xpForLevel(int $level): int {
     return (int)($level * ($level + 1) / 2 * 100);
 }
 
 
-/**
+/*
  * Given a total XP amount, returns:
  *   - level        : current level
  *   - xpThisLevel  : XP accumulated since the start of this level
@@ -29,11 +26,11 @@ function xpForLevel(int $level): int {
  *   - percent      : fill percentage for the XP bar (0.0 – 100.0)
  */
 function getLevelData(int $totalXP): array {
-    // Derived by solving N*(N+1)/2*100 <= totalXP
+    
     $level = (int)floor((-1 + sqrt(1 + 8 * $totalXP / 100)) / 2);
 
     $xpThisLevel = $totalXP - xpForLevel($level);
-    $xpNeeded    = ($level + 1) * 100; // equals xpForLevel(level+1) - xpForLevel(level)
+    $xpNeeded    = ($level + 1) * 100;
     $percent     = round($xpThisLevel / $xpNeeded * 100, 1);
 
     return [
@@ -43,3 +40,5 @@ function getLevelData(int $totalXP): array {
         'percent'     => $percent,
     ];
 }
+
+?>
