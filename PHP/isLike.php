@@ -11,7 +11,7 @@ if (!isset($_SESSION['IdUsername'])) {
     exit;
 }
 
-$IDUser = intval($_SESSION['IdUsername'] ?? 1);
+$IDUser = intval($_SESSION['IdUsername'] ?? -1);
 
 
 $hostname = "localhost";
@@ -31,9 +31,6 @@ $stmt->fetch();
 $stmt->close();
 
 session_write_close();
-if ($authorId !== $IDUser) {
-    die("You silly punk, don't try it again"); 
-}
 
 $query = "
 SELECT l.IdArticolo, l.IdUtente

@@ -500,6 +500,12 @@ html, body {
     color: #fff;
 }
 
+.comment-user-name:hover {
+    cursor: pointer;
+    text-decoration-line: underline;
+    color: #555;
+}
+
 .comment-user-text {
     margin: 0;
     color: #bdbdbd;

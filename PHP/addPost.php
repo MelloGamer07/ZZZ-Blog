@@ -76,13 +76,18 @@
                             <div class="post-comments">';
                                 while ($comment = mysqli_fetch_assoc($commentResult)) {
                                     $IdCommento = htmlspecialchars($comment['Id']);
+                                    $commentAuthorId = htmlspecialchars($comment['CommentoAutoreId']);
                                     
+                                    $nameClick = ($IDUser !== -1)
+                                        ? 'onclick="window.location.href=\'ProfilePage.php?id=' . $commentAuthorId . '#user/' . $commentAuthorId . '\';" style="cursor:pointer;"'
+                                        : 'style="cursor:default;"';
+
                                     echo '
                                         <div class="comment">
                                             <div class="comment-body">
                                                 <div class="comment-header">
                                                     <img id="comment-user-pfp" src="ASSETS/IMG/Avatars/Avatar' . htmlspecialchars($comment['Avatar']) . '.png">
-                                                    <h5 class="comment-user-name">' . htmlspecialchars($comment['Username']) . '</h5>
+                                                    <h5 class="comment-user-name" ' . $nameClick . '>' . htmlspecialchars($comment['Username']) . '</h5>
                                                     <div class="right-actions">
                                                     ';
                                                 include 'formLikeCommento.php';

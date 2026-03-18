@@ -43,11 +43,40 @@ while($row = mysqli_fetch_assoc($result)){
             $_SESSION['IdAvatar'] = $row['Avatar'];
 
             $passwordExists = true;
+
+            // --- Persistent login: store a secure token in DB and cookie ---
+            $token   = bin2hex(random_bytes(32)); // 64-char hex token
+            $expires = date('Y-m-d H:i:s', strtotime('+30 days'));
+            $userId  = intval($row['Id']);
+
+            // Clean up any old tokens for this user
+            $stmt = $conn->prepare("DELETE FROM RememberTokens WHERE IdUtente = ?");
+            $stmt->bind_param("i", $userId);
+            $stmt->execute();
+            $stmt->close();
+
+            // Insert new token
+            $stmt = $conn->prepare("INSERT INTO RememberTokens (IdUtente, Token, DataScadenza) VALUES (?, ?, ?)");
+            $stmt->bind_param("iss", $userId, $token, $expires);
+            $stmt->execute();
+            $stmt->close();
+
+            // Set cookie for 30 days (httponly + samesite for security)
+            $cookieExpiry = time() + (30 * 24 * 60 * 60);
+            setcookie('remember_token', $token, [
+                'expires'  => $cookieExpiry,
+                'path'     => '/',
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ]);
+
             session_write_close();
             break;
         }
     }
 }
+
+mysqli_close($conn);
 
 if (!$usernameExists || !$passwordExists) {
     $params = [];
@@ -57,8 +86,6 @@ if (!$usernameExists || !$passwordExists) {
     header("Location: ../loginIndex.php?" . $queryString); 
     exit;
 }
-
-mysqli_close($conn);
 
 header("Location: ../home.php");
 exit;

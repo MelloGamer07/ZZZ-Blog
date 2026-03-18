@@ -1,0 +1,33 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Delete the remember-me token from DB and clear the cookie
+if (!empty($_COOKIE['remember_token'])) {
+    $token = $_COOKIE['remember_token'];
+
+    $conn = mysqli_connect("localhost", "root", "", "zzz_2");
+    if ($conn) {
+        $stmt = $conn->prepare("DELETE FROM RememberTokens WHERE Token = ?");
+        $stmt->bind_param("s", $token);
+        $stmt->execute();
+        $stmt->close();
+        mysqli_close($conn);
+    }
+
+    // Expire the cookie immediately
+    setcookie('remember_token', '', [
+        'expires'  => time() - 3600,
+        'path'     => '/',
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+}
+
+session_unset();
+session_destroy();
+
+header("Location: ../loginIndex.php");
+exit();
+?>

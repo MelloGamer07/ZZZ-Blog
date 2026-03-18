@@ -39,9 +39,7 @@ $stmt->fetch();
 $stmt->close();
 
 session_write_close();
-if ($authorId !== $IDUser) {
-    die("You silly punk, don't try it again"); 
-}
+
 
 $result = mysqli_query($conn, $query);
 

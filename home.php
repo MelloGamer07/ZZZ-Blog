@@ -13,7 +13,6 @@
         $backgroundPreference = $_COOKIE['backgroundPreference'];
     }
 
-    // Show T&C only on first visit
     $showTerms = !isset($_COOKIE['termsAccepted']);
 
     session_write_close();
@@ -73,7 +72,6 @@
 
     <div class="IMG-Modal-Container-Background" id="IMG-Modal-Container-Background"></div>
 
-    <!-- After your header include, before closing page-wrapper -->
     <?php if ($IDUser === -1): ?>
     <div class="auth-modal-overlay" id="authModalOverlay">
         <div class="auth-modal">
@@ -100,7 +98,6 @@
     <script src="JS/home.js"></script>
     <script>
         function acceptTerms() {
-            // Set cookie for 1 year
             document.cookie = "termsAccepted=1; max-age=" + (60*60*24*365) + "; path=/";
             const overlay = document.getElementById('termsOverlay');
             overlay.classList.add('terms-closing');
