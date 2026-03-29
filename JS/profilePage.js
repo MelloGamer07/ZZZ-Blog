@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             closeLogoutModal();
             const searchOverlay = document.getElementById('searchModalOverlay');
             if (searchOverlay) searchOverlay.classList.remove('active');
+            closeFriendListModal();
             closeAvatarPicker();
             closeEditModal();
         }
@@ -79,6 +80,133 @@ function closeSearchModal(e) {
         document.getElementById('searchInput').value = '';
         document.getElementById('searchResults').innerHTML = '<p class="search-placeholder">Start typing to search...</p>';
     }
+}
+
+// ============================================================
+// Friend List Modal
+// ============================================================
+const FRIENDS_PER_PAGE = 15;
+let friendCurrentPage  = window.PAGE_DATA?.friendsCurrentPage ?? 1;
+let friendTotalPages   = window.PAGE_DATA?.friendsTotalPages   ?? 1;
+let friendTotalCount   = window.PAGE_DATA?.friendsTotal        ?? 0;
+let friendsCache       = {};   // page -> array of friend objects
+
+// Pre-load page 1 from the data already embedded in the page
+if (window.PAGE_DATA?.friends) {
+    friendsCache[friendCurrentPage] = window.PAGE_DATA.friends;
+}
+
+function openFriendListModal() {
+    document.getElementById('friendListModalOverlay').classList.add('active');
+    renderFriendPage(friendCurrentPage);
+}
+
+function closeFriendListModal(e) {
+    if (!e || e.target === document.getElementById('friendListModalOverlay')) {
+        document.getElementById('friendListModalOverlay').classList.remove('active');
+    }
+}
+
+function renderFriendPage(page) {
+    friendCurrentPage = page;
+    const resultsDiv   = document.getElementById('friendListResults');
+    const paginationDiv = document.getElementById('friendListPagination');
+    const countEl      = document.getElementById('friendListCount');
+
+    countEl.textContent = friendTotalCount === 1
+        ? '1 friend'
+        : `${friendTotalCount} friends`;
+
+    if (friendTotalCount === 0) {
+        resultsDiv.innerHTML = '<p class="search-placeholder">No friends yet.</p>';
+        paginationDiv.innerHTML = '';
+        return;
+    }
+
+    if (friendsCache[page]) {
+        displayFriendPage(friendsCache[page]);
+        buildPagination();
+        return;
+    }
+
+    resultsDiv.innerHTML = '<p class="search-placeholder">Loading...</p>';
+
+    fetch(`PHP/get_friends.php?id=${window.PAGE_DATA.profileId}&page=${page}&per_page=${FRIENDS_PER_PAGE}`)
+        .then(r => r.json())
+        .then(data => {
+            friendsCache[page] = data.friends ?? [];
+            friendTotalCount   = data.total   ?? friendTotalCount;
+            friendTotalPages   = data.pages   ?? friendTotalPages;
+            displayFriendPage(friendsCache[page]);
+            buildPagination();
+        })
+        .catch(() => {
+            resultsDiv.innerHTML = '<p class="search-placeholder">Error loading friends.</p>';
+        });
+}
+
+function displayFriendPage(friends) {
+    const resultsDiv = document.getElementById('friendListResults');
+
+    if (!friends || friends.length === 0) {
+        resultsDiv.innerHTML = '<p class="search-placeholder">No friends on this page.</p>';
+        return;
+    }
+
+    resultsDiv.innerHTML = '';
+    friends.forEach(user => {
+        const avatarSrc = 'ASSETS/IMG/Avatars/Avatar' + user.Avatar + '.png';
+        const div = document.createElement('div');
+        div.className = 'search-result-item';
+        div.innerHTML = `
+            <img src="${avatarSrc}" onerror="this.src='ASSETS/IMG/Avatars/Avatar0.png'" alt="">
+            <span>${user.Username}</span>
+        `;
+        div.onclick = () => goToProfile(user.Id);
+        resultsDiv.appendChild(div);
+    });
+}
+
+function buildPagination() {
+    const paginationDiv = document.getElementById('friendListPagination');
+    paginationDiv.innerHTML = '';
+
+    if (friendTotalPages <= 1) return;
+
+    const WINDOW = 2; // pages shown each side of current
+    const createBtn = (label, page, disabled, active) => {
+        const btn = document.createElement('button');
+        btn.className = 'fl-page-btn' + (active ? ' active' : '') + (disabled ? ' disabled' : '');
+        btn.textContent = label;
+        btn.disabled = disabled;
+        if (!disabled) btn.onclick = () => renderFriendPage(page);
+        return btn;
+    };
+
+    // Prev
+    paginationDiv.appendChild(createBtn('←', friendCurrentPage - 1, friendCurrentPage === 1, false));
+
+    // Page numbers with ellipsis
+    let pages = new Set([1, friendTotalPages]);
+    for (let p = Math.max(1, friendCurrentPage - WINDOW); p <= Math.min(friendTotalPages, friendCurrentPage + WINDOW); p++) {
+        pages.add(p);
+    }
+    pages = Array.from(pages).sort((a, b) => a - b);
+
+    let prev = null;
+    pages.forEach(p => {
+        if (prev !== null && p - prev > 1) {
+            const dots = document.createElement('span');
+            dots.className = 'fl-ellipsis';
+            dots.textContent = '…';
+            paginationDiv.appendChild(dots);
+        }
+        paginationDiv.appendChild(createBtn(p, p, false, p === friendCurrentPage));
+        prev = p;
+    });
+
+    // Next
+    paginationDiv.appendChild(createBtn('→', friendCurrentPage + 1, friendCurrentPage === friendTotalPages, false));
 }
 
 let searchTimeout;

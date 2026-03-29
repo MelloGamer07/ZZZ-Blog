@@ -57,6 +57,33 @@
         LIMIT 6
     ");
 
+    // --- Friends list (paginated, newest first) ---
+    $friendsPerPage = 15;
+    $friendPage     = max(1, intval($_GET['fp'] ?? 1));
+    $friendOffset   = ($friendPage - 1) * $friendsPerPage;
+
+    $totalFriendsResult = mysqli_query($conn, "
+        SELECT COUNT(*) AS cnt
+        FROM Follow
+        WHERE IdUtente = $profileId
+    ");
+    $totalFriends = (int)(mysqli_fetch_assoc($totalFriendsResult)['cnt'] ?? 0);
+    $totalFriendPages = max(1, (int)ceil($totalFriends / $friendsPerPage));
+
+    $friendsResult = mysqli_query($conn, "
+        SELECT u.Id, u.Username, u.Avatar
+        FROM Follow f
+        JOIN Utente u ON u.Id = f.IDUtenteFollow
+        WHERE f.IdUtente = $profileId
+        ORDER BY u.Username ASC
+        LIMIT $friendsPerPage OFFSET $friendOffset
+    ");
+
+    $friendsList = [];
+    while ($fr = mysqli_fetch_assoc($friendsResult)) {
+        $friendsList[] = $fr;
+    }
+
     $avatarSrc = "ASSETS/IMG/Avatars/Avatar" . $utente['Avatar'] . ".png";
     $avatarFallback = "ASSETS/IMG/Avatars/Avatar0.png";
     if (!file_exists(__DIR__ . '/' . $avatarSrc)) {
@@ -76,10 +103,10 @@
         <div class="back-btn" onclick="window.location.href = 'home.php';">
             <img class="back-btn-img" src="ASSETS/IMG/UI/BackButton.png" alt="Back">
         </div>
-        <div class="search-btn" onclick="openSearchModal(1);">
+        <div class="search-btn" onclick="openSearchModal();">
             <p>Search Users</p>
         </div>
-        <div class="friend-list-btn" id="friendList" onclick="openSearchModal(2);">
+        <div class="friend-list-btn" id="friendList" onclick="openFriendListModal();">
             <p>Friend List</p>
         </div>
         <?php if ($isOwnProfile): ?>
@@ -101,19 +128,34 @@
         </div>
     </div>
 
+    <!-- Search Modal -->
     <div class="modal-overlay" id="searchModalOverlay" onclick="closeSearchModal(event);">
         <div class="search-modal">
-            <input 
-                class="search-input" 
-                id="searchInput" 
-                type="text" 
-                placeholder="Search users..." 
+            <input
+                class="search-input"
+                id="searchInput"
+                type="text"
+                placeholder="Search users..."
                 oninput="searchUsers(this.value);"
                 autocomplete="off"
             >
             <div class="search-results" id="searchResults">
                 <p class="search-placeholder">Start typing to search...</p>
             </div>
+        </div>
+    </div>
+
+    <!-- Friend List Modal -->
+    <div class="modal-overlay" id="friendListModalOverlay" onclick="closeFriendListModal(event);">
+        <div class="friend-list-modal">
+            <div class="friend-list-modal-header">
+                <h2 class="friend-list-modal-title">Friend List</h2>
+                <span class="friend-list-modal-count" id="friendListCount"></span>
+            </div>
+            <div class="friend-list-results" id="friendListResults">
+                <p class="search-placeholder">Loading...</p>
+            </div>
+            <div class="friend-list-pagination" id="friendListPagination"></div>
         </div>
     </div>
 
@@ -242,7 +284,11 @@
             avatarIndex: <?= intval($utente['Avatar']) ?>,
             isFollowing: <?= $isFollowing ? 'true' : 'false' ?>,
             isOwnProfile: <?= $isOwnProfile ? 'true' : 'false' ?>,
-            isGuest:     <?= $isGuest ? 'true' : 'false' ?>
+            isGuest:     <?= $isGuest ? 'true' : 'false' ?>,
+            friends: <?= json_encode($friendsList) ?>,
+            friendsTotalPages: <?= $totalFriendPages ?>,
+            friendsCurrentPage: <?= $friendPage ?>,
+            friendsTotal: <?= $totalFriends ?>
         };
     </script>
     <script src="JS/profilePage.js"></script>

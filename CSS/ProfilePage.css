@@ -1006,3 +1006,107 @@ body{
     background: #ff4444;
     color: #000;
 }
+/* ============================================================
+   FRIEND LIST MODAL
+============================================================ */
+.friend-list-modal {
+    width: 500px;
+    background: #0d0d0d;
+    border-radius: 24px;
+    border: 4px solid #222;
+    outline: 2px solid #090909;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+}
+
+.friend-list-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px 14px;
+    border-bottom: 3px solid #1a1a1a;
+    flex-shrink: 0;
+}
+
+.friend-list-modal-title {
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    font-family: 'Inpin Hongmengti', sans-serif;
+}
+
+.friend-list-modal-count {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #555;
+    font-family: 'Inpin Hongmengti', sans-serif;
+}
+
+.friend-list-results {
+    overflow-y: auto;
+    flex: 1;
+    padding: 8px 0;
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;
+    min-height: 80px;
+}
+.friend-list-results::-webkit-scrollbar       { width: 5px; }
+.friend-list-results::-webkit-scrollbar-track { background: transparent; }
+.friend-list-results::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+/* ── Pagination ── */
+.friend-list-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 14px 16px;
+    border-top: 3px solid #1a1a1a;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.fl-page-btn {
+    min-width: 38px;
+    height: 38px;
+    padding: 0 10px;
+    border-radius: 50px;
+    background: #000;
+    border: 3px solid #2a2a2a;
+    color: #777;
+    font-family: 'Inpin Hongmengti', sans-serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: border-color 0.18s, color 0.18s, background 0.18s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.fl-page-btn:hover:not(.disabled):not(.active) {
+    border-color: #a2ff00;
+    color: #a2ff00;
+}
+.fl-page-btn.active {
+    border-color: #a2ff00;
+    background: #a2ff00;
+    color: #000;
+    font-weight: 700;
+    cursor: default;
+}
+.fl-page-btn.disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+}
+
+.fl-ellipsis {
+    color: #444;
+    font-family: 'Inpin Hongmengti', sans-serif;
+    font-size: 1rem;
+    padding: 0 2px;
+    user-select: none;
+}
