@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if (move_uploaded_file($fileTmp, $saveFilePath)) {
-                $query = "INSERT INTO articolo (IDUtente, Title, Descrizione, Img) VALUES ('$IDUsername','$title', '$text', '$filePath')";
+                $query = "INSERT INTO articolo (IDUtente, Title, Descrizione, Img, Pubblicato) VALUES ('$IDUsername','$title', '$text', '$filePath', 0)";
                 if ($conn->query($query) === TRUE) {
                     header("Location: ../home.php?");
                 } else {

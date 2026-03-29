@@ -1,3 +1,4 @@
+<?php $UserRole = $_SESSION['UserRole'] ?? "user"; ?>
 <html>
 <head>
 <link rel="stylesheet" href="CSS/footer.css">
@@ -10,10 +11,14 @@
             <img class="btn-img" src="ASSETS/IMG/UI/MailIMG2.png">
             <p class="btn-text">Mail</p>
         </div>
-        <div class="btn">
-            <img class="btn-img" src="ASSETS/IMG/UI/Options.png">
-            <p class="btn-text">Admin</p>
-        </div>
+        <?php
+            if ($UserRole === "admin"){
+                echo '<div class="btn" id="adminBtn">
+                    <img class="btn-img" src="ASSETS/IMG/UI/Options.png">
+                    <p class="btn-text">Admin</p>
+                </div>';
+            }
+        ?>
         <div class="btn" id="interKnot">
             <img class="btn-img" src="ASSETS/IMG/UI/InterKnotIMG.png">
             <p class="btn-text">Inter-Knot</p>

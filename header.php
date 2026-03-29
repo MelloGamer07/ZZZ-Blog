@@ -20,10 +20,6 @@ $levelData = getLevelData((int)$_headerXP);
 ?>
 
 <header>
-    <div class="back-btn" onclick="window.location.href = 'loginIndex.php';">
-        <img class="back-btn-img" src="ASSETS/IMG/UI/BackButton.png">
-    </div>
-
     <div class="profile-btn" id="profile-btn" onclick="handleProfileClick()">
         <div class="profile-btn-extra">
             <?php echo '<img class="pfp" src="ASSETS/IMG/Avatars/Avatar' . $IDAvatar . '.png">' ?>

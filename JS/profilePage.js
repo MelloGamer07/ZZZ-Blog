@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         bar.title = `${current} / ${needed} XP`;
     }
 
-    // --- Set URL hash ---
-    window.location.hash = '#user/' + window.PAGE_DATA.profileId;
 
     // --- Logout Modal ---
     const logoutOverlay = document.getElementById('logoutModalOverlay');
@@ -124,7 +122,7 @@ function searchUsers(query) {
 }
 
 function goToProfile(userId) {
-    window.location.href = 'ProfilePage.php?id=' + userId + '#user/' + userId;
+    window.location.href = 'ProfilePage.php?id=' + userId;
 }
 
 // ============================================================

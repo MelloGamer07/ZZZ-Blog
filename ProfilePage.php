@@ -3,6 +3,7 @@
 
     $Username = $_SESSION['Username'] ?? "Guest";
     $IDUser = intval($_SESSION['IdUsername'] ?? -1);
+    $isGuest = ($IDUser === -1);
     $_SESSION['IdUsername'] = $IDUser;
     $IDAvatar = intval($_SESSION['IdAvatar'] ?? 0);
 
@@ -222,7 +223,7 @@
                         }
                         $title = mb_strimwidth($row['Title'], 0, 30, '...');
                         echo '
-                        <div class="post-container" onclick="window.location.href=\'home.php#InterKnot/idArticle=' . $row['Id'] . '\';">
+                        <div class="post-container" onclick="window.open(\'home.php?article=' . $row['Id'] . '\', \'_blank\');">
                             <img class="img" src="' . $row['Img'] . '" alt="">
                             <h2 class="post-title">' . $title . '</h2>
                         </div>

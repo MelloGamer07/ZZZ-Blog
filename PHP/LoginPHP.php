@@ -41,6 +41,7 @@ while($row = mysqli_fetch_assoc($result)){
             $_SESSION['Username'] = $Username;
             $_SESSION['IdUsername'] = $row['Id'];
             $_SESSION['IdAvatar'] = $row['Avatar'];
+            $_SESSION['UserRole'] = $row['Ruolo'];
 
             $passwordExists = true;
 

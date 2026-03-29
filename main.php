@@ -15,7 +15,7 @@
     $offset = ($currentPage - 1) * $articlesPerPage;
 
     // Get total article count
-    $countResult = mysqli_query($conn, "SELECT COUNT(*) AS total FROM Articolo");
+    $countResult = mysqli_query($conn, "SELECT COUNT(*) AS total FROM Articolo WHERE Pubblicato = 1");
     $countRow = mysqli_fetch_assoc($countResult);
     $totalArticles = $countRow['total'];
     $totalPages = ceil($totalArticles / $articlesPerPage);
@@ -36,6 +36,7 @@
             u.Avatar
         FROM Articolo a
         JOIN Utente u ON a.IdUtente = u.Id
+        WHERE a.Pubblicato = 1
         ORDER BY a.DataCreazione DESC
         LIMIT $articlesPerPage OFFSET $offset
     ";

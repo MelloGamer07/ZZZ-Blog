@@ -6,6 +6,8 @@
     $_SESSION['IdUsername'] = $IDUser;
     $IDAvatar = intval($_SESSION['IdAvatar'] ?? 0);
 
+    
+
     if (!isset($_COOKIE['backgroundPreference'])) {
         setcookie("backgroundPreference", 1, time() + (86400 * 30), "/");
         $backgroundPreference = 1;
@@ -92,7 +94,7 @@
     <?php include 'PHP/plusBtn.php'; ?>
 
     <div id="footer-container">
-        <?php include 'footer.html'; ?>
+        <?php include 'footer.php'; ?>
     </div>
     <script>const isLoggedIn = <?php echo ($IDUser !== -1) ? 'true' : 'false'; ?>;</script>
     <script src="JS/home.js"></script>

@@ -1,7 +1,6 @@
 body{
     margin:0;
-    background-image: url('../ASSETS/IMG/LoadingScreens/0.jpg');
-    background-size: 100%;
+    background-color: #090909;
     cursor: url("../ASSETS/cursor.cur"),auto;
 }
 
