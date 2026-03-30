@@ -1,7 +1,9 @@
-// All PHP variables are injected by ProfilePage.php via window.PAGE_DATA
-
 document.addEventListener('DOMContentLoaded', () => {
-    // --- XP Bar ---
+    const backBtn = document.getElementById('backBtn');
+    if (backBtn) {
+        backBtn.addEventListener('click', handleBack);
+    }
+
     const bar = document.querySelector('.profile-lvlBar-container');
     if (bar) {
         const fill    = bar.querySelector('.profile-lvlBar-completition');
@@ -17,8 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         bar.title = `${current} / ${needed} XP`;
     }
 
-
-    // --- Logout Modal ---
     const logoutOverlay = document.getElementById('logoutModalOverlay');
     if (logoutOverlay) {
         logoutOverlay.addEventListener('click', function(e) {
@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Edit Modal ---
     const editOverlay = document.getElementById('editModalOverlay');
     if (editOverlay) {
         editOverlay.addEventListener('click', function(e) {
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Avatar Picker ---
     const avatarOverlay = document.getElementById('avatarPickerOverlay');
     if (avatarOverlay) {
         avatarOverlay.addEventListener('click', function(e) {
@@ -42,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Escape key closes all modals ---
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeLogoutModal();
@@ -55,9 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// ============================================================
-// Logout Modal
-// ============================================================
+function handleBack() {
+    const { isOwnProfile, isGuest } = window.PAGE_DATA;
+    if (!isOwnProfile && !isGuest) {
+        window.location.href = 'ProfilePage.php';
+    } else {
+        window.location.href = 'home.php';
+    }
+}
+
 function openLogoutModal() {
     document.getElementById('logoutModalOverlay').classList.add('active');
 }
@@ -66,9 +69,6 @@ function closeLogoutModal() {
     document.getElementById('logoutModalOverlay').classList.remove('active');
 }
 
-// ============================================================
-// Search Modal
-// ============================================================
 function openSearchModal() {
     document.getElementById('searchModalOverlay').classList.add('active');
     setTimeout(() => document.getElementById('searchInput').focus(), 50);
@@ -82,16 +82,12 @@ function closeSearchModal(e) {
     }
 }
 
-// ============================================================
-// Friend List Modal
-// ============================================================
 const FRIENDS_PER_PAGE = 15;
 let friendCurrentPage  = window.PAGE_DATA?.friendsCurrentPage ?? 1;
 let friendTotalPages   = window.PAGE_DATA?.friendsTotalPages   ?? 1;
 let friendTotalCount   = window.PAGE_DATA?.friendsTotal        ?? 0;
-let friendsCache       = {};   // page -> array of friend objects
+let friendsCache       = {};
 
-// Pre-load page 1 from the data already embedded in the page
 if (window.PAGE_DATA?.friends) {
     friendsCache[friendCurrentPage] = window.PAGE_DATA.friends;
 }
@@ -173,7 +169,7 @@ function buildPagination() {
 
     if (friendTotalPages <= 1) return;
 
-    const WINDOW = 2; // pages shown each side of current
+    const WINDOW = 2; 
     const createBtn = (label, page, disabled, active) => {
         const btn = document.createElement('button');
         btn.className = 'fl-page-btn' + (active ? ' active' : '') + (disabled ? ' disabled' : '');
@@ -183,10 +179,8 @@ function buildPagination() {
         return btn;
     };
 
-    // Prev
     paginationDiv.appendChild(createBtn('←', friendCurrentPage - 1, friendCurrentPage === 1, false));
 
-    // Page numbers with ellipsis
     let pages = new Set([1, friendTotalPages]);
     for (let p = Math.max(1, friendCurrentPage - WINDOW); p <= Math.min(friendTotalPages, friendCurrentPage + WINDOW); p++) {
         pages.add(p);
@@ -205,7 +199,6 @@ function buildPagination() {
         prev = p;
     });
 
-    // Next
     paginationDiv.appendChild(createBtn('→', friendCurrentPage + 1, friendCurrentPage === friendTotalPages, false));
 }
 
@@ -253,9 +246,14 @@ function goToProfile(userId) {
     window.location.href = 'ProfilePage.php?id=' + userId;
 }
 
-// ============================================================
-// Follow Button
-// ============================================================
+function goToPost(postId) {
+    window.open(
+        'home.php#InterKnot/idArticle=' + postId,
+        '_blank',
+        'noopener,noreferrer'
+    );
+}
+
 let isFollowing = window.PAGE_DATA?.isFollowing ?? false;
 
 function toggleFollow(userId) {
@@ -291,9 +289,6 @@ function toggleFollow(userId) {
     });
 }
 
-// ============================================================
-// Edit Profile Modal
-// ============================================================
 let pendingAvatarIndex = window.PAGE_DATA?.avatarIndex ?? 0;
 
 function openEditModal() {
@@ -374,9 +369,6 @@ function saveProfile() {
     });
 }
 
-// ============================================================
-// Avatar Picker
-// ============================================================
 const AVATAR_COUNT = 58;
 
 function buildAvatarGrid() {

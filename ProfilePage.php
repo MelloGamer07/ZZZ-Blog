@@ -57,7 +57,6 @@
         LIMIT 6
     ");
 
-    // --- Friends list (paginated, newest first) ---
     $friendsPerPage = 15;
     $friendPage     = max(1, intval($_GET['fp'] ?? 1));
     $friendOffset   = ($friendPage - 1) * $friendsPerPage;
@@ -93,6 +92,7 @@
     $profileDesc = htmlspecialchars($utente['Descrizione'] ?? '');
 ?>
 
+<!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="CSS/ProfilePage.css">
@@ -100,13 +100,13 @@
 <body>
 
     <header>
-        <div class="back-btn" onclick="window.location.href = 'home.php';">
+        <div class="back-btn" id="backBtn">
             <img class="back-btn-img" src="ASSETS/IMG/UI/BackButton.png" alt="Back">
         </div>
         <div class="search-btn" onclick="openSearchModal();">
             <p>Search Users</p>
         </div>
-        <div class="friend-list-btn" id="friendList" onclick="openFriendListModal();">
+        <div class="friend-list-btn" id="friendList" onclick="openFriendListModal()">
             <p>Friend List</p>
         </div>
         <?php if ($isOwnProfile): ?>
@@ -115,6 +115,20 @@
         </div>
         <?php endif; ?>
     </header>
+
+    <div class="modal-overlay" id="friendListModalOverlay" onclick="closeFriendListModal(event);">
+        <div class="friend-list-modal">
+            <div class="friend-list-modal-header">
+                <h2 class="friend-list-modal-title">Friend List</h2>
+                <span class="friend-list-modal-count" id="friendListCount"></span>
+            </div>
+            <div class="friend-list-results" id="friendListResults">
+                <p class="search-placeholder">Loading...</p>
+            </div>
+            <div class="friend-list-pagination" id="friendListPagination"></div>
+        </div>
+    </div>
+
 
     <!-- Logout Confirmation Modal -->
     <div class="logout-modal-overlay" id="logoutModalOverlay">
@@ -128,34 +142,19 @@
         </div>
     </div>
 
-    <!-- Search Modal -->
     <div class="modal-overlay" id="searchModalOverlay" onclick="closeSearchModal(event);">
         <div class="search-modal">
-            <input
-                class="search-input"
-                id="searchInput"
-                type="text"
-                placeholder="Search users..."
+            <input 
+                class="search-input" 
+                id="searchInput" 
+                type="text" 
+                placeholder="Search users..." 
                 oninput="searchUsers(this.value);"
                 autocomplete="off"
             >
             <div class="search-results" id="searchResults">
                 <p class="search-placeholder">Start typing to search...</p>
             </div>
-        </div>
-    </div>
-
-    <!-- Friend List Modal -->
-    <div class="modal-overlay" id="friendListModalOverlay" onclick="closeFriendListModal(event);">
-        <div class="friend-list-modal">
-            <div class="friend-list-modal-header">
-                <h2 class="friend-list-modal-title">Friend List</h2>
-                <span class="friend-list-modal-count" id="friendListCount"></span>
-            </div>
-            <div class="friend-list-results" id="friendListResults">
-                <p class="search-placeholder">Loading...</p>
-            </div>
-            <div class="friend-list-pagination" id="friendListPagination"></div>
         </div>
     </div>
 
@@ -221,6 +220,10 @@
             <div class="UID">UID: <?php echo $utente['Id']; ?></div>
             <?php if ($isOwnProfile): ?>
                 <button class="edit-info-btn" onclick="openEditModal();">Edit Info</button>
+                <form method="POST" action="PHP/eliminaAccount.php">
+                    <input type="hidden" name="user_id" value=<?php echo $IDUser; ?>>
+                    <button class="eliminate-account-btn" onclick="openCheckModal(event);">Delete Account</button>
+                </form>
             <?php else: ?>
                 <button class="follow-btn <?php echo $isFollowing ? 'following' : ''; ?>" 
                         id="followBtn" 
@@ -265,7 +268,7 @@
                         }
                         $title = mb_strimwidth($row['Title'], 0, 30, '...');
                         echo '
-                        <div class="post-container" onclick="window.open(\'home.php?article=' . $row['Id'] . '\', \'_blank\');">
+                        <div class="post-container" onclick="goToPost('. $row['Id'].')">
                             <img class="img" src="' . $row['Img'] . '" alt="">
                             <h2 class="post-title">' . $title . '</h2>
                         </div>
@@ -277,8 +280,55 @@
             </div>
         </div>
     </div>
+    
+    <?php if ($isOwnProfile): ?>
+    <div class="ModalCheckCommento" id="ModalCheckCommentoDestroy">
+        <h5 class="XModalCheck">X</h5>
+        <p>Are you sure you want to eliminate your account?</p>
+        <button class="confirm"> Destroy </button>
+    </div>
+
+    <div class="Background">
+    </div>
 
     <script>
+        let selectedForm = null;
+        let CheckModal = null; 
+        const Background = document.querySelector('.Background');
+
+        function openCheckModal(e) {
+            e.preventDefault();
+            selectedForm = e.currentTarget.closest('form');
+            CheckModal = document.getElementById('ModalCheckCommentoDestroy');
+
+            CheckModal.style.display = "flex";
+            Background.style.display = "flex";
+        }
+        document.querySelectorAll('.Background, .XModalCheck').forEach(btn => {
+            btn.addEventListener('click', closeCheckModal);
+        });
+        function closeCheckModal() {
+            CheckModal.style.display = "none";
+            Background.style.display = "none";
+        }
+
+        document.querySelectorAll('.confirm').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (selectedForm) {
+                    selectedForm.submit();
+                }
+            });
+        });
+
+    </script>
+    <?php endif; ?>
+
+    <script>
+        
+        <?php
+        $isGuest = ($IDUser === -1);
+        ?>
+
         window.PAGE_DATA = {
             profileId:   <?= intval($utente['Id']) ?>,
             avatarIndex: <?= intval($utente['Avatar']) ?>,

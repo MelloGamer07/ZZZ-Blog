@@ -36,7 +36,9 @@ if (!$conn) {
 
 $stmt = $conn->prepare("SELECT 1 FROM Follow WHERE IdUtente = ? AND IDUtenteFollow = ?");
 $stmt->bind_param("ii", $IDUser, $targetUserId);
-$stmt->execute();
+if (!$stmt->execute()) {
+    die(json_encode(['error' => $stmt->error]));
+}
 $stmt->store_result();
 $alreadyFollowing = $stmt->num_rows > 0;
 $stmt->close();
@@ -44,16 +46,50 @@ $stmt->close();
 if ($alreadyFollowing) {
     $stmt = $conn->prepare("DELETE FROM Follow WHERE IdUtente = ? AND IDUtenteFollow = ?");
     $stmt->bind_param("ii", $IDUser, $targetUserId);
-    $stmt->execute();
+    if (!$stmt->execute()) {
+        die(json_encode(['error' => $stmt->error]));
+    }
     $stmt->close();
+
+    $stmt = $conn->prepare("DELETE FROM Notifica WHERE IdMittente = ? AND IdDestinatario = ?");
+    $stmt->bind_param("ii", $IDUser, $targetUserId);
+    if (!$stmt->execute()) {
+        die(json_encode(['error' => $stmt->error]));
+    }
+    $stmt->close();
+
+    mysqli_close($conn);
+
     echo json_encode(['following' => false]);
+    exit;
 } else {
     $stmt = $conn->prepare("INSERT INTO Follow (IdUtente, IDUtenteFollow) VALUES (?, ?)");
     $stmt->bind_param("ii", $IDUser, $targetUserId);
     $stmt->execute();
     $stmt->close();
-    echo json_encode(['following' => true]);
-}
 
-mysqli_close($conn);
+    $stmt = $conn->prepare("SELECT Username FROM Utente WHERE Id = ?");
+    $stmt->bind_param("i", $IDUser);
+    if (!$stmt->execute()) {
+        die(json_encode(['error' => $stmt->error]));
+    }
+    $stmt->bind_result($userNameFollow);
+    $stmt->fetch();
+    $stmt->close();
+
+    $stmt = $conn->prepare("INSERT INTO Notifica (Tipo, IdDestinatario, IdMittente, Titolo, Messaggio) VALUES (?, ?, ?, ?, ?)");
+    $tipo = 'follow';
+    $titolo = 'Nuovo follower!';
+    $messaggio = htmlspecialchars($userNameFollow) .' ha iniziato a seguirti';
+    $stmt->bind_param("siiss", $tipo, $targetUserId, $IDUser, $titolo, $messaggio);
+    if (!$stmt->execute()) {
+        die(json_encode(['error' => $stmt->error]));
+    }
+    $stmt->close();
+
+    mysqli_close($conn);
+
+    echo json_encode(['following' => true]);
+    exit;
+}
 ?>

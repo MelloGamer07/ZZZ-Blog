@@ -1,8 +1,3 @@
-/*document.addEventListener("click", () => {
-  const Audio = document.getElementById("Audio");
-  Audio.play();
-}, { once: true });*/
-
 document.querySelector('.L').onclick = () => {
     window.location.href="loginIndex.php";
 };

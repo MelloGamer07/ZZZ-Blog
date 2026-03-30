@@ -1,8 +1,6 @@
 /*   UTENTE   */
 
 
-
-
 CREATE TABLE Utente (
   Id INT AUTO_INCREMENT PRIMARY KEY,
   Email VARCHAR(320) NOT NULL UNIQUE,
@@ -17,8 +15,6 @@ CREATE TABLE Utente (
 );
 
 
-
-
 INSERT INTO Utente (Email, Username, PasswordHash, Avatar, Ruolo)
 VALUES
 ('ambrogio68@gmail.com', 'Just4mbrogio', '4mbrogi@', 29, 'admin'),
@@ -26,22 +22,16 @@ VALUES
 /* NOTE: Fixed swapped Avatar/PasswordHash columns in the second insert */
 
 
-
-
-/* Follow */
+/* Follow */ 
 CREATE TABLE Follow (
   IdUtente INT NOT NULL,
   IDUtenteFollow INT NOT NULL,
 
-
   PRIMARY KEY(IdUtente, IDUtenteFollow),
-
 
   FOREIGN KEY (IdUtente) REFERENCES Utente(Id) ON UPDATE CASCADE,
   FOREIGN KEY (IDUtenteFollow) REFERENCES Utente(Id) ON UPDATE CASCADE
 );
-
-
 
 
 /*   ARTICOLO   */
@@ -55,8 +45,6 @@ CREATE TABLE Articolo (
   DataCreazione  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (IdUtente) REFERENCES Utente(Id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-
-
 
 
 INSERT INTO Articolo (IdUtente, Title, Img, Descrizione)
@@ -75,32 +63,24 @@ VALUES
 );
 
 
-
-
 /*   CATEGORIA   */
 CREATE TABLE Categoria(
   Id INT AUTO_INCREMENT PRIMARY KEY,
   Nome VARCHAR(50) NOT NULL UNIQUE
 );
 
-
 CREATE TABLE CategoriaArticolo(
   IdArticolo INT NOT NULL,
   IdCategoria INT NOT NULL,
 
-
   PRIMARY KEY(IdArticolo, IdCategoria),
-
 
   FOREIGN KEY(IdArticolo) REFERENCES Articolo(Id),
   FOREIGN KEY(IdCategoria) REFERENCES Categoria(Id)
 );
 
 
-
-
 /*   COMMENTO   */
-
 
 CREATE TABLE Commento(
   Id INT AUTO_INCREMENT PRIMARY KEY,
@@ -113,13 +93,10 @@ CREATE TABLE Commento(
   FOREIGN KEY (IdUtente) REFERENCES Utente(Id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
 INSERT INTO Commento(IdUtente, IdArticolo, Content)
 VALUES
 (1, 1, 'Yuh uh'),
 (2, 1, 'Nuh uh');
-
-
 
 
 /*   LIKE   */
@@ -131,9 +108,7 @@ CREATE TABLE LikeArticolo(
   FOREIGN KEY (IdArticolo) REFERENCES Articolo(Id) ON UPDATE CASCADE
 );
 
-
 /*SELECT COUNT(*) FROM LikeArticolo WHERE IdArticolo = ???;*/
-
 
 CREATE TABLE LikeCommento(
   IdUtente INT NOT NULL,
@@ -145,33 +120,23 @@ CREATE TABLE LikeCommento(
   FOREIGN KEY (IdCommento) REFERENCES Commento(Id) ON DELETE CASCADE
 );
 
-
 /*SELECT COUNT(*) FROM LikeCommento WHERE IdCommento = ???;*/
-
 
 /*   SEGNALAZIONE   */
 
-
 CREATE TABLE Segnalazione(
-  Id INT PRIMARY KEY AUTO_INCREMENT,
+  Id INT PRIMARY KEY AUTO_INCREMENT, 
   Ragione Varchar(160) NOT NULL,
   DataCreazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- 
+  
   IdUtente INT NOT NULL,
   IdArticolo INT NOT NULL,
-  IdCommento INT,
-
+  IdCommento INT, 
 
   FOREIGN KEY (IdUtente) REFERENCES Utente(Id) ON UPDATE CASCADE,
   FOREIGN KEY (IdArticolo) REFERENCES Articolo(Id) ON UPDATE CASCADE,
   FOREIGN KEY (IdCommento) REFERENCES Commento(Id) ON UPDATE CASCADE
 );
-
-
-INSERT INTO segnalazione (Ragione, IdUtente, IdArticolo) VALUES ("Odio i negri", 2 , 1);
-INSERT INTO segnalazione (Ragione, IdUtente, IdArticolo , IdCommento) VALUES ("Odio i negri", 1 , 1 , 1);
-
-
 
 
 /*   ADMIN STUFF   */
@@ -182,40 +147,37 @@ CREATE TABLE AdminLogs (
   IdTargetUtente INT,
   DataCreazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-
   FOREIGN KEY (IdAdmin) REFERENCES Utente(Id),
-  FOREIGN KEY (IdTargetUtente) REFERENCES Utente(Id)
+  FOREIGN KEY (IdTargetUtente) REFERENCES Utente(Id) ON DELETE SET NULL
 );
 
+INSERT INTO AdminLogs (IdAdmin, AzionePresa, IdTargetUtente)
+VALUES
+(1, 'Eliminato articolo boh per contenuti inappropriati', 2);
 
 CREATE TABLE ParoleBan(
   Id INT AUTO_INCREMENT PRIMARY KEY,
   Parola VARCHAR(20) NOT NULL UNIQUE
 );
 
+INSERT INTO `paroleban` (`Parola`) VALUES
+('abuse'),('admin'),('affanculo'),('asshat'),('asshole'),('asswipe'),('bastard'),('bastardi'),('bastardo'),('bastardone'),('bastards'),('bet'),('bitch'),('bitchass'),('bitches'),('bitchy'),('bitcoin'),('bonus'),('bot'),('buffone'),('bullshit'),('carogna'),('cash'),('casino'),('cazzo'),('clicca'),('clickbait'),('cocaine'),('coglione'),('coglioni'),('creep'),('cretino'),('crypto'),('death'),('debito'),('debt'),('deficiente'),('degenerate'),('degenerates'),('depravato'),('dipshit'),('discount'),('disgraziati'),('disgraziato'),('douche'),('douchebag'),('drugs'),('dumbass'),('escort'),('estorsione'),('exploit'),('facciadiculo'),('fake'),('faker'),('fallimento'),('fallito'),('falso'),('feccia'),('fecciaumana'),('figliodiputtana'),('filth'),('followers'),('fraud'),('freak'),('free'),('frode'),('fuck'),('fucker'),('fuckers'),('garbage'),('gratis'),('guadagno'),('hack'),('hacker'),('handicappati'),('handicappato'),('hate'),('heroin'),('horseshit'),('idiot'),('idiota'),('idiots'),('imbecille'),('incazzarsi'),('incazzati'),('incazzato'),('inculare'),('inculati'),('inculato'),('infame'),('infami'),('insulto'),('jackass'),('jackpot'),('jerk'),('keylogger'),('kill'),('killer'),('ladro'),('leccaculo'),('likes'),('link'),('loan'),('loser'),('losers'),('lowlife'),('lowlifes'),('lurida'),('luride'),('lurido'),('mafioso'),('maledetti'),('maledetto'),('malware'),('maniaco'),('merda'),('meth'),('minaccia'),('minchia'),('miserabile'),('money'),('mongoloide'),('moron'),('morons'),('motherfucker'),('motherfuckers'),('murder'),('mutuo'),('nazi'),('nazista'),('nonsense'),('nude'),('nudo'),('odio'),('offer'),('offerta'),('parassita'),('pervert'),('perverts'),('pezzodimerda'),('phish'),('phishing'),('pieceofshit'),('pills'),('pirla'),('poker'),('porn'),('porno'),('premio'),('prestito'),('prize'),('promo'),('psicopatici'),('psicopatico'),('psycho'),('psychos'),('puttana'),('puttane'),('racist'),('razzista'),('retard'),('retarded'),('retards'),('ricatto'),('ritardati'),('ritardato'),('rompicoglioni'),('rootkit'),('scam'),('scemo'),('schifo'),('schifosi'),('schifoso'),('scommesse'),('sconto'),('scumbag'),('scumbastard'),('sesso'),('sex'),('sfigato'),('shit'),('shitface'),('shithead'),('sicko'),('slot'),('slut'),('sluts'),('soldi'),('sonofabitch'),('sonsofbitches'),('spam'),('spammer'),('sporco'),('spyware'),('steroid'),('stronzi'),('stronzo'),('stupido'),('subscribe'),('succhiacazzi'),('succhiacazzo'),('suicide'),('support'),('supporto'),('terror'),('testadicazzo'),('testadiminchia'),('threat'),('trash'),('trashy'),('troia'),('troie'),('trojan'),('truffa'),('truffatore'),('vaffanculo'),('vergogna'),('vergognosi'),('vergognoso'),('verme'),('viagra'),('vincita'),('violento'),('virus'),('wallet'),('weapon'),('weirdo'),('whore'),('whores'),('winner'),('worm');
 
 CREATE TABLE AdminLogs_ParoleBan(
   IdAdminLog INT,
   IdParolaBan INT,
 
-
   PRIMARY KEY(IdAdminLog, IdParolaBan),
-
 
   FOREIGN KEY(IdAdminLog) REFERENCES AdminLogs(Id),
   FOREIGN KEY(IdParolaBan) REFERENCES ParoleBan(Id)
 );
 
 
-
-
 /* ================= XP TRIGGERS ================= */
-
 
 DELIMITER $$
 
-
--- +10 XP when someone likes an article
 CREATE TRIGGER trg_like_article_add
 AFTER INSERT ON LikeArticolo
 FOR EACH ROW
@@ -226,8 +188,6 @@ BEGIN
   WHERE u.Id = a.IdUtente;
 END$$
 
-
--- -10 XP when a like on an article is removed
 CREATE TRIGGER trg_like_article_remove
 AFTER DELETE ON LikeArticolo
 FOR EACH ROW
@@ -238,8 +198,6 @@ BEGIN
   WHERE u.Id = a.IdUtente;
 END$$
 
-
--- +5 XP when someone likes a comment
 CREATE TRIGGER trg_like_comment_add
 AFTER INSERT ON LikeCommento
 FOR EACH ROW
@@ -250,8 +208,6 @@ BEGIN
   WHERE u.Id = c.IdUtente;
 END$$
 
-
--- -5 XP when a like on a comment is removed
 CREATE TRIGGER trg_like_comment_remove
 AFTER DELETE ON LikeCommento
 FOR EACH ROW
@@ -262,8 +218,6 @@ BEGIN
   WHERE u.Id = c.IdUtente;
 END$$
 
-
--- +20 XP when someone follows this user
 CREATE TRIGGER trg_follow_add
 AFTER INSERT ON Follow
 FOR EACH ROW
@@ -272,8 +226,6 @@ BEGIN
   WHERE Id = NEW.IDUtenteFollow;
 END$$
 
-
--- -20 XP when someone unfollows this user
 CREATE TRIGGER trg_follow_remove
 AFTER DELETE ON Follow
 FOR EACH ROW
@@ -282,81 +234,112 @@ BEGIN
   WHERE Id = OLD.IDUtenteFollow;
 END$$
 
-
 DELIMITER ;
 
-
-
-
-/*  RICERCHE VELOCI DA VEDERE  */
-
-
-/*CREATE INDEX idx_utenti_username ON Utente(Username);
-CREATE INDEX idx_articoli_title ON Articolo(Title);*/
-
-
--- Add this to zzz_2.sql or run it separately
 CREATE TABLE RememberTokens (
   Id          INT AUTO_INCREMENT PRIMARY KEY,
   IdUtente    INT NOT NULL,
-  Token       VARCHAR(64) NOT NULL UNIQUE,
+  Token       VARCHAR(255) NOT NULL UNIQUE,
   DataScadenza DATETIME NOT NULL,
   DataCreazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
 
   FOREIGN KEY (IdUtente) REFERENCES Utente(Id) ON DELETE CASCADE
 );
 
 
-
-
 /*  NOTIFICHE  */
-
-
 CREATE TABLE Notifica (
   Id INT AUTO_INCREMENT PRIMARY KEY,
 
-
   IdDestinatario INT NOT NULL,
-  IdMittenteLog INT,
-
 
   Tipo ENUM(
     'follow',
     'post_eliminato',
-    'commento_eliminato'
+    'commento_eliminato',
+    'notizia',
+    'sospensione_account'
   ) NOT NULL,
 
-
+  IdMittente INT NULL,
   IdArticolo INT NULL,
   IdCommento INT NULL,
+  IdAdminLogs INT NULL,
 
+  CHECK (
+    (Tipo = 'follow' 
+      AND IdMittente IS NOT NULL 
+      AND IdArticolo IS NULL 
+      AND IdCommento IS NULL 
+      AND IdAdminLogs IS NULL) OR
 
-  Messaggio VARCHAR(160),
+    (Tipo = 'post_eliminato' 
+      AND IdArticolo IS NOT NULL 
+      AND IdAdminLogs IS NOT NULL 
+      AND IdMittente IS NULL) OR
+
+    (Tipo = 'commento_eliminato' 
+      AND IdCommento IS NOT NULL 
+      AND IdAdminLogs IS NOT NULL 
+      AND IdMittente IS NULL) OR
+
+    (Tipo = 'notizia' 
+      AND IdMittente IS NULL 
+      AND IdArticolo IS NULL 
+      AND IdCommento IS NULL 
+      AND IdAdminLogs IS NULL) OR
+
+    (Tipo = 'sospensione_account'
+      AND IdAdminLogs IS NOT NULL
+      AND IdMittente IS NULL
+      AND IdArticolo IS NULL
+      AND IdCommento IS NULL)
+  ),
+
+  Titolo VARCHAR(100) NOT NULL,
+  Messaggio VARCHAR(160) NOT NULL,
   Letta BOOLEAN DEFAULT FALSE,
   DataCreazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-
   FOREIGN KEY (IdDestinatario) REFERENCES Utente(Id) ON DELETE CASCADE,
-  FOREIGN KEY (IdMittenteLog) REFERENCES AdminLogs(Id) ON DELETE SET NULL,
+  FOREIGN KEY (IdMittente) REFERENCES Utente(Id) ON DELETE CASCADE,
+  FOREIGN KEY (IdAdminLogs) REFERENCES AdminLogs(Id) ON DELETE SET NULL,
   FOREIGN KEY (IdArticolo) REFERENCES Articolo(Id) ON DELETE SET NULL,
   FOREIGN KEY (IdCommento) REFERENCES Commento(Id) ON DELETE SET NULL
 );
+/* Follow */
 
+INSERT INTO Notifica 
+(Tipo, IdDestinatario, IdMittente, Titolo, Messaggio)
+VALUES
+('follow', 1, 2, 'Nuovo follower', 'TheOneWhoLeftItAllBehind ha iniziato a seguirti.');
 
-/*  SHOWS ALL UNREAD NOTIFICATIONS FOR THE SELECTED USER  */
-/*  Try to see if it's worth using it  */
+/* Post eliminatato */
 
+INSERT INTO Notifica 
+(Tipo, IdDestinatario, IdCommento, IdAdminLogs, Titolo, Messaggio)
+VALUES
+('commento_eliminato', 1, 2, 1, 'Commento rimosso', 'Il tuo commento è stato eliminato.');
 
-/*CREATE INDEX idx_notifiche_user_letta
-ON Notifica(IdDestinatario, Letta);*/
+/* Commento eliminatato */
 
+INSERT INTO Notifica 
+(Tipo, IdDestinatario, IdMittente, IdCommento, IdAdminLogs, Titolo, Messaggio)
+VALUES
+('commento_eliminato', 1, NULL, 2, 1, 'Commento rimosso', 'Il tuo commento è stato eliminato.');
+
+/* Notizia */
+
+INSERT INTO Notifica 
+(Tipo, IdDestinatario, Titolo, Messaggio)
+VALUES
+('notizia', 1, 'Nuova funzionalità', 'Abbiamo aggiunto il sistema XP!');
 
 CREATE TABLE Ban (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    UtenteId INT,
-    Motivo VARCHAR(255),
-    DataInizio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    DataFine TIMESTAMP NULL,
-    FOREIGN KEY (UtenteId) REFERENCES Utente(Id)
+  Id INT AUTO_INCREMENT PRIMARY KEY,
+  UtenteId INT,
+  Motivo VARCHAR(255),
+  DataInizio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  DataFine TIMESTAMP NULL,
+  FOREIGN KEY (UtenteId) REFERENCES Utente(Id)
 );

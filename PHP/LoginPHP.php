@@ -37,6 +37,37 @@ while($row = mysqli_fetch_assoc($result)){
     if($row["Username"] === $Username){
         $usernameExists = true;
 
+        $userId = intval($row['Id']);
+        $banStmt = $conn->prepare("
+            SELECT Id, Motivo, DataFine 
+            FROM Ban 
+            WHERE UtenteId = ? 
+              AND (DataFine IS NULL OR DataFine > NOW()) 
+            LIMIT 1
+        ");
+        $banStmt->bind_param("i", $userId);
+        $banStmt->execute();
+        $banResult = $banStmt->get_result();
+
+        if ($banResult->num_rows > 0) {
+            $ban = $banResult->fetch_assoc();
+            $banStmt->close();
+
+            $logStmt = $conn->prepare("
+                INSERT INTO AdminLogs (IdAdmin, AzionePresa, IdTargetUtente) 
+                VALUES (?, ?, ?)
+            ");
+            $logAction = "Tentativo di login bloccato: account bannato. Motivo: " . ($ban['Motivo'] ?? 'N/A');
+            $logStmt->bind_param("isi", $userId, $logAction, $userId);
+            $logStmt->execute();
+            $logStmt->close();
+
+            mysqli_close($conn);
+            header("Location: ../loginIndex.php?bannedError=1");
+            exit;
+        }
+        $banStmt->close();
+
         if(password_verify($Password, $row["PasswordHash"]) && passwordChecks($Password)) {
             $_SESSION['Username'] = $Username;
             $_SESSION['IdUsername'] = $row['Id'];
@@ -45,24 +76,20 @@ while($row = mysqli_fetch_assoc($result)){
 
             $passwordExists = true;
 
-            // --- Persistent login: store a secure token in DB and cookie ---
-            $token   = bin2hex(random_bytes(32)); // 64-char hex token
+            $token   = bin2hex(random_bytes(32));
             $expires = date('Y-m-d H:i:s', strtotime('+30 days'));
             $userId  = intval($row['Id']);
 
-            // Clean up any old tokens for this user
             $stmt = $conn->prepare("DELETE FROM RememberTokens WHERE IdUtente = ?");
             $stmt->bind_param("i", $userId);
             $stmt->execute();
             $stmt->close();
 
-            // Insert new token
             $stmt = $conn->prepare("INSERT INTO RememberTokens (IdUtente, Token, DataScadenza) VALUES (?, ?, ?)");
             $stmt->bind_param("iss", $userId, $token, $expires);
             $stmt->execute();
             $stmt->close();
 
-            // Set cookie for 30 days (httponly + samesite for security)
             $cookieExpiry = time() + (30 * 24 * 60 * 60);
             setcookie('remember_token', $token, [
                 'expires'  => $cookieExpiry,

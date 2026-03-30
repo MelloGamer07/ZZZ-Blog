@@ -17,9 +17,10 @@
     if($IDUser != -1){
         echo '<div class="container-vertical-for-actions">';
         if($IDUser != $IDUserArticolo){
-        echo '<form method="POST" action="PHP/isLike.php">
+        echo '<form method="POST" action="PHP/SegnalaPost.php">
                     <input type="hidden" name="article_id" value="' . $articleId . '">
-                    <button class="post-segnala" ><p> <span>Segnala</span></p></button>
+                    <input type="hidden" name="ragione" value="">
+                    <button class="post-segnala"><p> <span>Segnala</span></p></button>
                 </form>';
         }
         else{

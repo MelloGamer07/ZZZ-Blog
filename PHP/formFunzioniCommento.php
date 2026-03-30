@@ -18,9 +18,10 @@
         echo '<div class="container-vertical-for-actions">';
         if($IDUser != $IDUserArticolo){
             echo '
-            <form method="POST" action="PHP/isLike.php">
+            <form method="POST" action="PHP/SegnalaCommento.php">
                 <input type="hidden" name="article_id" value="' . $articleId . '">
                 <input type="hidden" name="commento_id" value="' . $IdCommento . '">
+                <input type="hidden" name="ragione" value="">
                 <button class="post-segnala" style="height: 18px;"><p> <span>Segnala</span></p></button>
             </form>';
         }

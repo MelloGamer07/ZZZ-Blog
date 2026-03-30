@@ -79,7 +79,7 @@
                                     $commentAuthorId = htmlspecialchars($comment['CommentoAutoreId']);
                                     
                                     $nameClick = ($IDUser !== -1)
-                                        ? 'onclick="window.location.href=\'ProfilePage.php?id=' . $commentAuthorId . '#user/' . $commentAuthorId . '\';" style="cursor:pointer;"'
+                                        ? 'onclick = goToProfile(' . $commentAuthorId . '); #user/' . $commentAuthorId . '\';" style="cursor:pointer;"'
                                         : 'style="cursor:default;"';
 
                                     echo '
@@ -113,6 +113,27 @@
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <div class="ModalCheckCommento" id="ModalCheckCommentoDestroy">
+            <h5 class="XModalCheck">X</h5>
+            <p>Are you sure you want to eliminate it?</p>
+            <button class="confirm"> Destroy </button>
+        </div>
+
+        <div class="Background">
+        </div>
+
+        <div class="ModalCheckCommento" id="ModalCheckCommentoReport">
+            <h5 class="XModalCheck">X</h5>
+            <p>What is the reason for the report?</p>
+            <div class="textarea-container">
+                <textarea class="input" id="reportReason"
+                        maxlength="160"
+                        placeholder="Enter reason pretty please..."></textarea>
+                <span class="edit-char-count" id="reportCharCount">0/160</span>
+            </div>
+            <button class="confirm"> Report </button>
         </div>
         ';
     }

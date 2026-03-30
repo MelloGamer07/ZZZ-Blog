@@ -54,7 +54,6 @@ function executeAction() {
     fd.append('action', action);
     fd.append('id', id);
 
-    // Suspension duration handling
     if (cfg.isSuspend) {
         const dateVal   = document.getElementById('suspend_date')?.value;
         const amount    = parseInt(document.getElementById('suspend_amount')?.value);
@@ -62,7 +61,6 @@ function executeAction() {
 
         let until = null;
         if (dateVal) {
-            // Use the explicit datetime-local value directly
             until = dateVal.replace('T', ' ') + ':00';
         } else if (amount > 0) {
             const now = new Date();
@@ -119,12 +117,10 @@ function filterCards() {
     });
 }
 
-// ─── Post Preview (via addPost.php) ──────────────────────────────────────────
 function previewPost(postId) {
     const wrapper = document.getElementById('modal-wrapper');
     const loading = document.getElementById('previewLoading');
 
-    // Clear any previous modal and show spinner
     wrapper.innerHTML = '';
     loading.classList.add('active');
 
@@ -140,14 +136,12 @@ function previewPost(postId) {
             loading.classList.remove('active');
             wrapper.innerHTML = html;
 
-            // The injected HTML contains id="modal-post" with display:none by default.
-            // Force it visible and wire up the Escape key.
             const modal = wrapper.querySelector('.post-modal-container');
             if (modal) {
                 modal.style.display = 'flex';
                 modal.classList.add('open-modal');
                 document.body.style.overflow = 'hidden';
-                // Clicking the dark backdrop closes the modal
+                
                 modal.addEventListener('click', function(e) {
                     if (e.target === modal) closeModal();
                 });
@@ -160,7 +154,6 @@ function previewPost(postId) {
         });
 }
 
-// closeModal is called by addPost.php's exit button onclick="closeModal()"
 function closeModal() {
     const wrapper = document.getElementById('modal-wrapper');
     const modal   = wrapper.querySelector('.post-modal-container');
@@ -177,7 +170,6 @@ function closeModal() {
     }
 }
 
-// Close preview on Escape key
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         if (document.getElementById('modal-wrapper').innerHTML.trim()) closeModal();

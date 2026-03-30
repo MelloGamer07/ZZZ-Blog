@@ -1,6 +1,7 @@
 body{
     margin:0;
-    background-color: #090909;
+    background-image: url('../ASSETS/IMG/LoadingScreens/0.jpg');
+    background-size: 100%;
     cursor: url("../ASSETS/cursor.cur"),auto;
 }
 
@@ -1049,4 +1050,268 @@ html, body {
 .modal-exit-button-img{
     width: 85px;
     height: 56px;
+}
+
+.ModalCheckCommento{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: #161616;
+    border: 3px solid rgb(129, 126, 126);
+    border-radius: 15px 0px 15px 15px;
+
+    padding: 20px;
+    z-index: 3001;
+
+    font-family: 'Inpin Hongmengti', sans-serif;
+
+    display: none;
+
+    flex-direction: column;
+    align-items: flex-end; 
+}
+
+.XModalCheck {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+
+    background-color: #949393;
+    border: 1px solid rgb(5, 5, 5);
+    border-radius: 5px;
+
+    padding: 3px;
+    margin: 6px;
+    
+    font-family: 'Inpin Hongmengti', sans-serif;
+
+    cursor: pointer;
+}
+
+.XModalCheck:hover{
+    animation: CDW-button-pressed 1s infinite;
+    color: #000;
+}
+
+.ModalCheckCommento p {
+
+    color: rgb(212, 211, 211);
+    text-align: center;
+    
+
+    border-bottom: 2px solid #3d3c3cc7;
+
+    margin: 7px 0 10px 0;
+    padding-bottom: 10px;
+
+}
+
+.ModalCheckCommento button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 35px;
+    min-width: 80px;
+    padding: 0 15px;
+    margin: 2px;
+
+    background-color: #090909;
+    color: white;
+    font-style: italic;
+    font-size: 16px;
+
+    border-radius: 80px;
+    border: 3px solid #454545;
+
+    cursor: pointer;
+    user-select: none;
+    font-family: 'Inpin Hongmengti', sans-serif;
+}
+
+
+.ModalCheckCommento button:active{
+    animation: CDW-button-pressed 1s infinite;
+    color: #000;
+    border: none;
+}
+
+
+.Background{
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+
+    background-color: #000;
+
+    background-image: radial-gradient(rgba(180,180,180,0.15) 1px, transparent 1px);
+    background-size: 6px 6px;
+
+    opacity: 0.9;
+    cursor: pointer;
+
+    display: none;
+}
+
+.textarea-container {
+    position: relative;      
+    width: 100%;
+}
+
+.ModalCheckCommento textarea {
+    width: 100%;
+    height: 90px;
+    background: #161616;
+    border: 3px solid #222;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: 'inpin hongmengti', italic;
+    resize: none;
+    box-sizing: border-box;   
+}
+
+.ModalCheckCommento textarea:focus {
+    border-color: #a2ff00;
+}
+
+.edit-char-count {
+    position: absolute;
+    bottom: 8px;             
+    right: 10px;             
+    font-size: 0.72rem;
+    color: #444;
+    font-style: italic;
+}
+.edit-char-count.warn { color: #e3ff00; }
+.edit-char-count.over { color: #ff4444; }
+
+:root {
+    --bg:#090909; --surface:#0d0d0d; --card:#131313; --border:#222222;
+    --accent:#a2ff00; --blue:#2aa8ff; --red:#ff4444;
+    --muted:#555; --subtext:#acacab; --text:#ffffff;
+    --font:'InpinHongmengti',sans-serif;
+}
+
+.search-sort-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 180px;
+    max-width: 320px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 18px;
+    pointer-events: none;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.search-input {
+    height: 44px;
+    width: 100%;
+    background: var(--card);
+    border: 3px solid var(--border);
+    border-radius: 50px;
+    color: var(--text);
+    font-family: var(--font);
+    font-style: italic;
+    font-size: 0.9rem;
+    padding: 0 40px 0 42px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.search-input:focus {
+    border-color: var(--accent);
+}
+
+.search-input::placeholder {
+    color: var(--muted);
+}
+
+.search-clear {
+    position: absolute;
+    right: 16px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.search-clear:hover { color: var(--text); }
+
+.sort-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.sort-label {
+    font-size: 1rem;
+    color: #000;
+    white-space: nowrap;
+    
+    font-family: 'inpin hongmengti', italic;
+}
+
+.sort-btn {
+    height: 34px;
+    padding: 0 16px;
+    border-radius: 50px;
+    background: var(--card);
+    border: 3px solid var(--border);
+    color: var(--subtext);
+    font-family: var(--font);
+    font-style: italic;
+    font-size: 0.78rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.2s, color 0.2s;
+    user-select: none;
+}
+
+.sort-btn:hover {
+    border-color: #444;
+    color: var(--text);
+}
+
+.sort-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+}
+
+.search-results-info {
+    font-size: 0.78rem;
+    color: var(--muted);
+    padding: 0 0 6px 2px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--muted);
+    font-family: var(--font);
+    font-style: italic;
 }

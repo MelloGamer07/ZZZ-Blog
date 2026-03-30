@@ -3,7 +3,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Delete the remember-me token from DB and clear the cookie
 if (!empty($_COOKIE['remember_token'])) {
     $token = $_COOKIE['remember_token'];
 
@@ -15,8 +14,6 @@ if (!empty($_COOKIE['remember_token'])) {
         $stmt->close();
         mysqli_close($conn);
     }
-
-    // Expire the cookie immediately
     setcookie('remember_token', '', [
         'expires'  => time() - 3600,
         'path'     => '/',

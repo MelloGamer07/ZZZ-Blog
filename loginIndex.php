@@ -36,6 +36,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const passwordErrorDiv = document.getElementById("AttentionInputsPassword");
     const passwordErrorText = document.getElementById("AttentionPasswordText");
 
+    if (urlParams.has('bannedError')) {
+        usernameErrorText.textContent = "Your account has been banned. Login is not allowed.";
+        usernameErrorDiv.style.display = "block";
+        setTimeout(() => usernameErrorDiv.style.opacity = 1, 50);
+        return;
+    }
+
     if (urlParams.has('usernameError')) {
         usernameErrorText.textContent = "Username doesn't exist";
         usernameErrorDiv.style.display = "block";
@@ -49,4 +56,3 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
-

@@ -1,13 +1,11 @@
 <?php 
-    session_start();
+    require_once __DIR__ . '/PHP/auth_check.php';
 
     $Username = $_SESSION['Username'] ?? "Guest";
     $IDUser = intval($_SESSION['IdUsername'] ?? -1);
     $_SESSION['IdUsername'] = $IDUser;
     $IDAvatar = intval($_SESSION['IdAvatar'] ?? 0);
-
-    
-
+    $UserRole = intval($_SESSION['UserRole'] ?? "user");
     if (!isset($_COOKIE['backgroundPreference'])) {
         setcookie("backgroundPreference", 1, time() + (86400 * 30), "/");
         $backgroundPreference = 1;

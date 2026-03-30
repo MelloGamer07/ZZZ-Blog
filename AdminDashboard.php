@@ -248,7 +248,6 @@
     <?php
     $pag_base = '?section=users&usort='.urlencode($userSort).'&udir='.urlencode($userSortDir).($userSearch!==''?'&usearch='.urlencode($userSearch):'').'&page=';
     $sortBase = '?section=users&page=1'.($userSearch!==''?'&usearch='.urlencode($userSearch):'');
-    // Helper: build sort URL, toggling direction if already active
     $sortUrl = fn(string $key) => $sortBase.'&usort='.$key.'&udir='.($userSort===$key && $userSortDir==='desc' ? 'asc' : 'desc');
     $sortArrow = fn(string $key) => $userSort===$key ? ($userSortDir==='desc' ? ' ↓' : ' ↑') : '';
     ?>
@@ -401,7 +400,7 @@
     </nav>
     <?php endif; ?>
 
-    <?php endif; // end users_list not empty ?>
+    <?php endif;?>
 
 <?php endif; ?>
 

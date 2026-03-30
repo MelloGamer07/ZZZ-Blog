@@ -9,14 +9,12 @@ $conn = mysqli_connect($hostname, $username, $password, $database);
 
 if (!$conn) die("Connection failed: " . mysqli_connect_error());
 
-// Controllo Admin
 if (!isset($_SESSION['IdUsername']) || !isset($_SESSION['UserRole']) || $_SESSION['UserRole'] !== 'admin') {
     header('Location: home.php'); exit;
 }
 
 $admin_id = (int) $_SESSION['IdUsername'];
 
-// Helper: log admin action
 function logAdminAction(mysqli $conn, int $adminId, string $action, ?int $targetUserId = null): int {
     $stmt = $conn->prepare("INSERT INTO AdminLogs (IdAdmin, AzionePresa, IdTargetUtente) VALUES (?, ?, ?)");
     $stmt->bind_param("isi", $adminId, $action, $targetUserId);
@@ -26,7 +24,6 @@ function logAdminAction(mysqli $conn, int $adminId, string $action, ?int $target
     return $logId;
 }
 
-// POST handler
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
     $action = $_POST['action'] ?? '';
@@ -74,10 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $row      = $r ? $r->fetch_assoc() : null;
             $authorId = $row['IdUtente'] ?? null;
 
-            // Clear reports first
             $conn->query("DELETE FROM Segnalazione WHERE IdArticolo=$id");
-            // Note: you may also need to handle Commento, LikeArticolo, CategoriaArticolo
-            // depending on whether those FKs have CASCADE or not
 
             $stmt = $conn->prepare("DELETE FROM Articolo WHERE Id=?");
             $stmt->bind_param("i",$id);
@@ -124,14 +118,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         case 'ban_user': {
-            // Guard: cannot ban admins
             $r = $conn->query("SELECT Ruolo FROM Utente WHERE Id=$id");
             $row = $r ? $r->fetch_assoc() : null;
             if (!$row || $row['Ruolo'] === 'admin') {
                 echo json_encode(['success'=>false,'error'=>'Cannot ban an admin.']); break;
             }
-            // Remove any existing active ban first (idempotent), then insert fresh ban
-            $conn->query("DELETE FROM Ban WHERE UtenteId=$id AND DataFine IS NULL");
+            // Clear ALL existing ban rows before inserting the new permanent ban
+            $conn->query("DELETE FROM Ban WHERE UtenteId=$id");
             $stmt = $conn->prepare("INSERT INTO Ban (UtenteId, Motivo) VALUES (?, 'Banned by admin')");
             $stmt->bind_param("i",$id);
             if ($stmt->execute()) {
@@ -144,36 +137,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'suspend_user': {
             $r = $conn->query("SELECT Ruolo FROM Utente WHERE Id=$id");
             $row = $r ? $r->fetch_assoc() : null;
+
             if (!$row || $row['Ruolo'] === 'admin') {
-                echo json_encode(['success'=>false,'error'=>'Cannot suspend an admin.']); break;
+                echo json_encode(['success'=>false,'error'=>'Cannot suspend an admin.']);
+                break;
             }
-            // Parse suspension end time from POST
+
             $until = null;
             if (!empty($_POST['suspend_until'])) {
-                // Explicit datetime string sent from JS (Y-m-d H:i:s)
                 $until = $_POST['suspend_until'];
             }
+
             $stmt = $conn->prepare("UPDATE Utente SET Ruolo='onThinIce' WHERE Id=? AND Ruolo!='admin'");
             $stmt->bind_param("i",$id);
+
             if ($stmt->execute()) {
                 $detail = $until ? " until $until" : " indefinitely";
-                logAdminAction($conn,$admin_id,"Suspended user #$id$detail",$id);
-                // Store the expiry in the Ban table with a non-null DataFine so it's distinguishable from a ban
+
+                $logId = logAdminAction($conn,$admin_id,"Suspended user #$id$detail",$id);
+
                 if ($until) {
                     $conn->query("DELETE FROM Ban WHERE UtenteId=$id AND DataFine IS NOT NULL");
                     $ins = $conn->prepare("INSERT INTO Ban (UtenteId, Motivo, DataFine) VALUES (?, 'Suspension', ?)");
-                    $ins->bind_param("is",$id,$until); $ins->execute(); $ins->close();
+                    $ins->bind_param("is",$id,$until);
+                    $ins->execute();
+                    $ins->close();
                 }
+
+                $msg = $until
+                    ? "Your account has been suspended until $until."
+                    : "Your account has been suspended.";
+
+                $ns = $conn->prepare("
+                    INSERT INTO Notifica (
+                        IdDestinatario,
+                        Tipo,
+                        IdAdminLogs,
+                        Titolo,
+                        Messaggio
+                    ) VALUES (?, 'sospensione_account', ?, 'Account Suspended', ?)
+                ");
+                $ns->bind_param("iis", $id, $logId, $msg);
+                $ns->execute();
+                $ns->close();
+
                 echo json_encode(['success'=>true,'newRole'=>'onThinIce']);
-            } else { echo json_encode(['success'=>false,'error'=>$conn->error]); }
-            $stmt->close(); break;
+            } else {
+                echo json_encode(['success'=>false,'error'=>$conn->error]);
+            }
+
+            $stmt->close();
+            break;
         }
 
         case 'unban_user':
         case 'unsuspend_user': {
             if ($action === 'unban_user') {
-                // Lift active ban from Ban table
-                $stmt = $conn->prepare("DELETE FROM Ban WHERE UtenteId=? AND DataFine IS NULL");
+                // Delete ALL active ban rows (both permanent DataFine IS NULL and timed DataFine > NOW())
+                $stmt = $conn->prepare("DELETE FROM Ban WHERE UtenteId=? AND (DataFine IS NULL OR DataFine > NOW())");
                 $stmt->bind_param("i",$id);
                 if ($stmt->execute()) {
                     logAdminAction($conn,$admin_id,"Unbanned user #$id",$id);
@@ -181,13 +202,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else { echo json_encode(['success'=>false,'error'=>$conn->error]); }
                 $stmt->close();
             } else {
-                // unsuspend: restore Ruolo to 'user'
                 $stmt = $conn->prepare("UPDATE Utente SET Ruolo='user' WHERE Id=? AND Ruolo='onThinIce'");
                 $stmt->bind_param("i",$id);
+
                 if ($stmt->execute()) {
-                    logAdminAction($conn,$admin_id,"Unsuspended user #$id",$id);
+                    $logId = logAdminAction($conn,$admin_id,"Unsuspended user #$id",$id);
+
+                    $ns = $conn->prepare("
+                        INSERT INTO Notifica (
+                            IdDestinatario,
+                            Tipo,
+                            IdAdminLogs,
+                            Titolo,
+                            Messaggio
+                        ) VALUES (?, 'sospensione_account', ?, 'Account Restored', 'Your account suspension has been removed.')
+                    ");
+                    $ns->bind_param("ii", $id, $logId);
+                    $ns->execute();
+                    $ns->close();
+
                     echo json_encode(['success'=>true,'newRole'=>'user']);
-                } else { echo json_encode(['success'=>false,'error'=>$conn->error]); }
+                } else {
+                    echo json_encode(['success'=>false,'error'=>$conn->error]);
+                }
+
                 $stmt->close();
             }
             break;
@@ -198,12 +236,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_close($conn); exit;
 }
 
-// GET: load section data
 $section = $_GET['section'] ?? 'approve';
 $sort    = $_GET['sort']    ?? 'date';
 $section = in_array($section, ['approve','post_reports','comment_reports','users']) ? $section : 'approve';
 
-// Users pagination
 $usersPerPage  = 30;
 $userPage      = max(1, (int)($_GET['page'] ?? 1));
 $userOffset    = ($userPage - 1) * $usersPerPage;
@@ -277,7 +313,7 @@ if ($section === 'comment_reports') {
 }
 
 if ($section === 'users') {
-    $dir = strtoupper($userSortDir); // 'ASC' or 'DESC'
+    $dir = strtoupper($userSortDir);
     $orderMap = [
         'username' => "u.Username $dir",
         'xp'       => "u.XP $dir",
@@ -319,7 +355,6 @@ if ($section === 'users') {
     while ($row = $res->fetch_assoc()) $users_list[] = $row;
 }
 
-// Badge counts
 $count_pending   = (int)$conn->query("SELECT COUNT(*) c FROM Articolo WHERE Pubblicato=FALSE")->fetch_assoc()['c'];
 $count_preports  = (int)$conn->query("SELECT COUNT(DISTINCT IdArticolo) c FROM Segnalazione WHERE IdCommento IS NULL")->fetch_assoc()['c'];
 $count_creports  = (int)$conn->query("SELECT COUNT(DISTINCT IdCommento) c FROM Segnalazione WHERE IdCommento IS NOT NULL")->fetch_assoc()['c'];

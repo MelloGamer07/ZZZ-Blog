@@ -33,6 +33,7 @@ if ($authorId !== $userId) {
 
 $sql = "DELETE FROM Commento WHERE Id='$commentoId'";
 mysqli_query($conn, $sql);
+mysqli_close($conn);
 
 header("Location: ../home.php#InterKnot/idArticle=" . $postId);
 ?>

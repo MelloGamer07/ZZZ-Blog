@@ -1,7 +1,6 @@
 <?php
 require_once 'PHP/levelSystem.php';
 
-// Fetch XP directly — don't rely on the including page to set $UserXP
 $_headerXP = 0;
 if (!empty($IDUser) && $IDUser !== -1) {
     $_headerConn = mysqli_connect("localhost", "root", "", "zzz_2");

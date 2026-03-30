@@ -766,3 +766,201 @@ header {
     height: 100%;
     display: none;
 }
+
+.post-likes, .post-segnala, .post-elimina{
+    color: #000;
+    font-size: 12px;
+    font-family: 'inpin hongmengti';
+    background-color: #606060;
+    height: 25px;
+    width: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 25px;
+
+
+    margin-left: 25px;
+   /* margin-left: -165px;
+    margin-top: 40px;*/
+}
+
+
+.container-vertical-for-actions {
+    display: flex;
+    flex-direction: column;   
+    gap: 6px;                 
+    margin-left: 10px;
+}
+
+.post-segnala, .post-elimina {
+    margin-left: 0;           
+}
+
+.modal-exit-button{
+    width: 84px;
+    height:72px;
+    margin-top:-15px;
+    margin-left: auto;
+    margin-right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px 10px 50px 30px;
+}
+
+
+.modal-exit-button:active{
+    animation: button-pressed 1s infinite;
+}
+.modal-exit-button:active .modal-exit-button-img{
+    display: none;
+}
+
+
+.modal-exit-button-img{
+    width: 85px;
+    height: 56px;
+}
+
+.ModalCheckCommento{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: #161616;
+    border: 3px solid rgb(129, 126, 126);
+    border-radius: 15px 0px 15px 15px;
+
+    padding: 20px;
+    z-index: 3001;
+
+    font-family: 'Inpin Hongmengti', sans-serif;
+
+    display: none;
+
+    flex-direction: column;
+    align-items: flex-end; 
+}
+
+.XModalCheck {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+
+    background-color: #949393;
+    border: 1px solid rgb(5, 5, 5);
+    border-radius: 5px;
+
+    padding: 3px;
+    margin: 6px;
+    
+    font-family: 'Inpin Hongmengti', sans-serif;
+
+    cursor: pointer;
+}
+
+.XModalCheck:hover{
+    animation: CDW-button-pressed 1s infinite;
+    color: #000;
+}
+
+.ModalCheckCommento p {
+
+    color: rgb(212, 211, 211);
+    text-align: center;
+    
+
+    border-bottom: 2px solid #3d3c3cc7;
+
+    margin: 7px 0 10px 0;
+    padding-bottom: 10px;
+
+}
+
+.ModalCheckCommento button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 35px;
+    min-width: 80px;
+    padding: 0 15px;
+    margin: 2px;
+
+    background-color: #090909;
+    color: white;
+    font-style: italic;
+    font-size: 16px;
+
+    border-radius: 80px;
+    border: 3px solid #454545;
+
+    cursor: pointer;
+    user-select: none;
+    font-family: 'Inpin Hongmengti', sans-serif;
+}
+
+
+.ModalCheckCommento button:active{
+    animation: CDW-button-pressed 1s infinite;
+    color: #000;
+    border: none;
+}
+
+
+.Background{
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+
+    background-color: #000;
+
+    background-image: radial-gradient(rgba(180,180,180,0.15) 1px, transparent 1px);
+    background-size: 6px 6px;
+
+    opacity: 0.9;
+    cursor: pointer;
+
+    display: none;
+}
+
+.textarea-container {
+    position: relative;      
+    width: 100%;
+}
+
+.ModalCheckCommento textarea {
+    width: 100%;
+    height: 90px;
+    background: #161616;
+    border: 3px solid #222;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: 'inpin hongmengti', italic;
+    resize: none;
+    box-sizing: border-box;   
+}
+
+.ModalCheckCommento textarea:focus {
+    border-color: #a2ff00;
+}
+
+.edit-char-count {
+    position: absolute;
+    bottom: 8px;             
+    right: 10px;             
+    font-size: 0.72rem;
+    color: #444;
+    font-style: italic;
+}
+.edit-char-count.warn { color: #e3ff00; }
+.edit-char-count.over { color: #ff4444; }
